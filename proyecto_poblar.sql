@@ -153,12 +153,12 @@ INSERT INTO proyecto_bd.Estudiante(
 
 -- POBLAR ASIGNATURA
 
-INSERT INTO proyecto_bd.Asignatura (Nombre) VALUES 
-('Matemáticas'),
-('Lenguaje y Comunicación'),
-('Ciencias Naturales'),
-('Historia y Geografía'),
-('Educación Física');
+INSERT INTO proyecto_bd.Asignatura (ID_Curso, Nombre) VALUES 
+('1', 'Matemáticas'),
+('2', 'Lenguaje y Comunicación'),
+('3', 'Ciencias Naturales'),
+('1', 'Historia y Geografía'),
+('2', 'Educación Física');
 
 -- POBLAR EVALUACION
 
@@ -353,3 +353,4 @@ INSERT INTO proyecto_bd.asignaturaESTAENbloquehorario(
 (3, 'Miércoles', '08:00:00', '10:00:00'), -- Asignatura Ciencias Naturales en bloque horario
 (4, 'Jueves', '10:30:00', '12:30:00'), -- Asignatura Historia y Geografía en bloque horario
 (5, 'Viernes', '08:00:00', '10:00:00'); -- Asignatura Educación Física en bloque horario
+

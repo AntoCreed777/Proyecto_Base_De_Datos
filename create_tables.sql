@@ -130,6 +130,7 @@ CREATE TABLE IF NOT EXISTS proyecto_bd.Estudiante (
 
 CREATE TABLE IF NOT EXISTS proyecto_bd.Asignatura (
     ID_Asignatura SERIAL PRIMARY KEY,
+    ID_Cursos INT,
     Nombre VARCHAR(100)
 );
 
