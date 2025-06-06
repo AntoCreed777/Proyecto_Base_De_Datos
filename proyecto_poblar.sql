@@ -1,15 +1,10 @@
 -- Script para poblar la base de datos del proyecto
 
---     POBLAR GENERO
-
 INSERT INTO proyecto_bd.Genero (Nombre_Genero) VALUES 
     ('Masculino'),
     ('Femenino'),
     ('No Binario'),
-    ('Otro'),
-    ('Prefiero no decir');X
-
--- POBLAR NACIONALIDAD
+    ('Otro');
 
 INSERT INTO proyecto_bd.Nacionalidad (Pais) VALUES 
     ('Chile'),
@@ -17,8 +12,6 @@ INSERT INTO proyecto_bd.Nacionalidad (Pais) VALUES
     ('Perú'),
     ('Brasil'),
     ('Uruguay');
-
--- POBLAR RELIGION
 
 INSERT INTO proyecto_bd.Religion (Nombre_Religion)  
 VALUES
@@ -28,8 +21,6 @@ VALUES
     ('Musulmana'),
     ('Atea'),
     ('Agnóstica');
-
--- POBLAR PERSONA
 
 INSERT INTO proyecto_bd.Persona 
 (RUN, Contraseña, Fecha_de_nacimiento, ID_Genero, ID_Nacionalidad, ID_Religion) 
@@ -45,8 +36,6 @@ VALUES
     ('12345678-k', 'pass8secure', '2005-09-09', 4, 4, 4), -- ESTUDIANTE
     ('12345679-k', 'pass9secure', '2006-10-10', 5, 5, 5); -- ESTUDIANTE
 
--- POBLAR NOMBRE COMPLETO
-
 INSERT INTO proyecto_bd.Nombre_Completo 
 (RUN_Persona, Nombre, Apellido_paterno, Apellido_materno) 
 VALUES 
@@ -60,8 +49,6 @@ VALUES
     ('12345677-k', 'Lucas', 'Martínez', 'Vargas'),    --FUNCIONARIO
     ('12345678-k', 'Josefa', 'Contreras', 'López'),   --ESTUDIANTE
     ('12345679-k', 'Agustín', 'Espinoza', 'Herrera'); --ESTUDIANTE
-
--- POBLAR NUMERO TELEFONICO
 
 INSERT INTO proyecto_bd.Numero_Telefonico 
 (RUN_Persona, Codigo_del_pais, Codigo_del_area, Numero_unico)
@@ -77,8 +64,6 @@ VALUES
 ('12345678-k', 56, 2, 90123456),
 ('12345679-k', 56, 2, 12345678);
 
--- POBLAR LUGAR DE RESIDENCIA
-
 INSERT INTO proyecto_bd.Lugar_de_Residencia 
 (RUN_Persona, Region, Ciudad, Comuna, Calle, Numero_casa, Numero_dpt)
 VALUES 
@@ -93,8 +78,6 @@ VALUES
 ('12345678-k', 'Región de O’Higgins', 'Rancagua', 'Machalí', 'Calle San Martín', 9202, 909),
 ('12345679-k', 'Región del Maule', 'Talca', 'Curicó', 'Calle Libertador Bernardo O’Higgins', 1023, 1010);
 
--- POBLAR APODERADO
-
 INSERT INTO proyecto_bd.Apoderado 
 (ID_Persona, Lugar_de_Trabajo)
 VALUES 
@@ -104,17 +87,12 @@ VALUES
 ('12345673-k', 'Universidad Nacional');
 
 
--- POBLAR DOCENTE
-
 INSERT INTO proyecto_bd.Docente
 (ID_Persona)
 VALUES
 ('12345674-k'), -- Docente Florencia
 ('12345675-k'); -- Docente Tomás
 
--- POBLAR INFO_FAMILIA
-
--- 
 INSERT INTO proyecto_bd.Info_Familia(
     Nombre_Familia,
     Cuantos_Trabajan,
@@ -134,8 +112,6 @@ INSERT INTO proyecto_bd.Info_Familia(
 ('Familia González', 2, 'Ingeniero y Profesora', 4, 3, 2, TRUE,'Red eléctrica', 'Agua potable', 'Casa sólida', 'Propia', 'Casados', 'Ambos Vivos', 800000),
 ('Familia Muñoz', 1, 'Médico', 1, 2, 1, FALSE, 'Red eléctrica', 'Agua potable', 'Departamento', 'Arrendada', 'Convivientes', 'Solo el Padre Vivo', 600000);
 
--- POBLAR ESTUDIANTE
-
 INSERT INTO proyecto_bd.Estudiante(
     ID_Persona, 
     ID_Familia, 
@@ -150,8 +126,24 @@ INSERT INTO proyecto_bd.Estudiante(
 ('12345678-k', 1, 2020, '2020-001', NULL, '2020-01-15', 'Vigente', 1),
 ('12345679-k', 2, 2021, '2021-002', NULL, '2021-02-20', 'Vigente', 2);
 
+INSERT INTO proyecto_bd.Sala (Nombre_Sala) VALUES 
+('Sala 101'),
+('Sala 102'),
+('Sala 103'),
+('Sala 104'),
+('Sala 105');
 
--- POBLAR ASIGNATURA
+INSERT INTO proyecto_bd.Curso(
+    ID_Docente, 
+    ID_Sala, 
+    Año, 
+    Semestre, 
+    Grado, 
+    Letra
+) VALUES 
+('12345674-k', 1, 2020, 1, 1, 'A'), -- Curso
+('12345675-k', 2, 2020, 2, 2, 'B'), -- Curso
+('12345674-k', 3, 2021, 1, 3, 'C'); -- Curso
 
 INSERT INTO proyecto_bd.Asignatura (ID_Curso, Nombre) VALUES 
 ('1', 'Matemáticas'),
@@ -159,8 +151,6 @@ INSERT INTO proyecto_bd.Asignatura (ID_Curso, Nombre) VALUES
 ('3', 'Ciencias Naturales'),
 ('1', 'Historia y Geografía'),
 ('2', 'Educación Física');
-
--- POBLAR EVALUACION
 
 INSERT INTO proyecto_bd.Evaluacion(
     ID_Docente, 
@@ -173,8 +163,6 @@ INSERT INTO proyecto_bd.Evaluacion(
 ('12345674-k', 3, '2020-03-03', 0.2), -- Docente Florencia
 ('12345675-k', 4, '2020-03-04', 0.5); -- Docente Tomás
 
-
--- POBLAR BLOQUE HORARIO
 
 INSERT INTO proyecto_bd.Bloque_Horario (
     Dia,
@@ -192,8 +180,6 @@ INSERT INTO proyecto_bd.Bloque_Horario (
 ('Viernes', '08:00:00', '10:00:00'),
 ('Viernes', '10:30:00', '12:30:00');
 
--- POBLAR ASISTENCIA}
-
 INSERT INTO proyecto_bd.Asistencia(
     ID_Estudiante, 
     ID_Asignatura, 
@@ -208,8 +194,6 @@ INSERT INTO proyecto_bd.Asistencia(
 ('12345678-k', 3, 'Presente', '2020-03-03', 'Miércoles', '08:00:00', '10:00:00'),
 ('12345679-k', 4, 'Presente', '2020-03-04', 'Jueves', '10:30:00', '12:30:00');
 
--- POBLAR JUSTIFICACION
-
 INSERT INTO proyecto_bd.Justificacion(
     ID_Asistencia, 
     Descripcion_Justificacion
@@ -218,31 +202,6 @@ INSERT INTO proyecto_bd.Justificacion(
 (2, 'Falta por viaje familiar'),
 (3, 'Falta por compromiso personal'),
 (4, 'Falta por motivo académico');
-
-
--- POBLAR SALA
-
-INSERT INTO proyecto_bd.Sala (Nombre_Sala) VALUES 
-('Sala 101'),
-('Sala 102'),
-('Sala 103'),
-('Sala 104'),
-('Sala 105');
-
--- POBLAR CURSO
-INSERT INTO proyecto_bd.Curso(
-    ID_Docente, 
-    ID_Sala, 
-    Año, 
-    Semestre, 
-    Grado, 
-    Letra
-) VALUES 
-('12345674-k', 1, 2020, 1, 1, 'A'), -- Curso
-('12345675-k', 2, 2020, 2, 2, 'B'), -- Curso
-('12345674-k', 3, 2021, 1, 3, 'C'); -- Curso
-
--- POBLAR ACTIVIDAD EXTRACURRICULAR
 
 INSERT INTO proyecto_bd.Actividad_Extracurricular( 
         ID_Sala, 
@@ -254,8 +213,6 @@ INSERT INTO proyecto_bd.Actividad_Extracurricular(
     (4, 'Coro'),
     (5, 'Robótica');
 
--- POBLAR REPORTE ACCIDENT
-
 INSERT INTO proyecto_bd.Reporte_Accidente(
     ID_Estudiante, 
     Descripcion,
@@ -263,8 +220,6 @@ INSERT INTO proyecto_bd.Reporte_Accidente(
 ) VALUES 
 ('12345678-k', 'Caída en el patio durante el recreo', '2020-03-01'),
 ('12345679-k', 'Lesión en la clase de educación física', '2021-03-02');
-
--- POBLAR ANOTACION
 
 INSERT INTO proyecto_bd.Anotacion(
     ID_Estudiante, 
@@ -274,7 +229,6 @@ INSERT INTO proyecto_bd.Anotacion(
 ('12345678-k', 'Excelente participación en clase', 'Positiva'),
 ('12345679-k', 'Falta de respeto a un compañero', 'Negativa');
 
--- POBLAR ESTUDIANTE TOMA ACTIVIDAD
 INSERT INTO proyecto_bd.estudianteTOMAactividad(
     ID_Estudiante, 
     ID_Actividad
@@ -282,7 +236,6 @@ INSERT INTO proyecto_bd.estudianteTOMAactividad(
 ('12345678-k', 1), -- Estudiante toma actividad Fútbol
 ('12345679-k', 2); -- Estudiante toma actividad Banda Escolar
 
--- POBLAR ESTUDIANTE RINDE EVALUACION
 INSERT INTO proyecto_bd.estudianteRINDEevaluacion(
     ID_Estudiante, 
     ID_Evaluacion, 
@@ -291,7 +244,6 @@ INSERT INTO proyecto_bd.estudianteRINDEevaluacion(
 ('12345678-k', 1, 6.5), -- Estudiante rinde evaluación
 ('12345679-k', 2, 5.0); -- Estudiante rinde evaluación
 
--- POBLAR ESTUDIANTE PERTENECE CURSO
 INSERT INTO proyecto_bd.estudiantePERTENECEcurso(
     ID_Estudiante, 
     ID_Curso
@@ -299,7 +251,6 @@ INSERT INTO proyecto_bd.estudiantePERTENECEcurso(
 ('12345678-k', 1), -- Estudiante pertenece al curso 1
 ('12345679-k', 2); -- Estudiante pertenece al curso 2
 
--- POBLAR APODERADO RESPONSABLE DE ESTUDIANTE
 INSERT INTO proyecto_bd.apoderadoRESPONSABLEDEestudiante(
     ID_Estudiante, 
     ID_Apoderado, 
@@ -308,29 +259,21 @@ INSERT INTO proyecto_bd.apoderadoRESPONSABLEDEestudiante(
 ('12345678-k', '12345670-k', 'Padre'), -- Apoderado responsable del estudiante
 ('12345679-k', '12345671-k', 'Madre'); -- Apoderado responsable del estudiante
 
--- POBLAR DOCENTE ASIGNA ASIGNATURA
 INSERT INTO proyecto_bd.docenteDICTAasignatura(
     ID_Asignatura,
-    ID_Docente, 
-    ID_Curso
+    ID_Docente
 ) VALUES 
-    (1, '12345674-k', 1), -- Docente asigna asignatura Matemáticas al curso 1
-    (2, '12345675-k', 2), -- Docente asigna asignatura Lenguaje y Comunicación al curso 2
-    (3, '12345674-k', 3), -- Docente asigna asignatura Ciencias Naturales al curso 3
-    (4, '12345675-k', 1); -- Docente asigna asignatura Historia y Geografía al curso 1
+    (1, '12345674-k'), -- Docente asigna asignatura Matemáticas
+    (2, '12345675-k'), -- Docente asigna asignatura Lenguaje y Comunicación
+    (3, '12345674-k'), -- Docente asigna asignatura Ciencias Naturales
+    (4, '12345675-k'); -- Docente asigna asignatura Historia y Geografía
 
-
-
--- -- POBLAR DOCENTE A CARGO DE ACTIVIDAD
--- INSERT INTO proyecto_bd.docenteACARGOactividad(
---     ID_Actividad, 
---     ID_Docente
--- ) VALUES 
--- (1, '12345674-k'), -- Docente a cargo de la actividad Fútbol
--- (2, '12345675-k'); -- Docente a cargo de la actividad Banda Escolar
-
-
--- POBLAR ACTIVIDAD EN BLOQUE HORARIO
+INSERT INTO proyecto_bd.docenteACARGOactividad(
+    ID_Actividad, 
+    ID_Docente
+) VALUES 
+(1, '12345674-k'), -- Docente a cargo de la actividad Fútbol
+(2, '12345675-k'); -- Docente a cargo de la actividad Banda Escolar
 
 INSERT INTO proyecto_bd.actividadESTAENELbloquehorario(
     ID_Actividad, 
@@ -341,9 +284,6 @@ INSERT INTO proyecto_bd.actividadESTAENELbloquehorario(
 (1, 'Lunes', '08:00:00', '10:00:00'), -- Actividad Fútbol en bloque horario
 (2, 'Martes', '10:30:00', '12:30:00'); -- Actividad Banda Escolar en bloque horario
 
-
--- POBLAR ASIGNATURA EN BLOQUE HORARIO
-
 INSERT INTO proyecto_bd.asignaturaESTAENbloquehorario(
     ID_Asignatura, 
     Dia,
@@ -353,4 +293,3 @@ INSERT INTO proyecto_bd.asignaturaESTAENbloquehorario(
 (3, 'Miércoles', '08:00:00', '10:00:00'), -- Asignatura Ciencias Naturales en bloque horario
 (4, 'Jueves', '10:30:00', '12:30:00'), -- Asignatura Historia y Geografía en bloque horario
 (5, 'Viernes', '08:00:00', '10:00:00'); -- Asignatura Educación Física en bloque horario
-

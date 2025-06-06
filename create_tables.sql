@@ -16,7 +16,6 @@ CREATE TABLE IF NOT EXISTS proyecto_bd.Religion (
     Nombre_Religion VARCHAR(100)
 );
 
-
 CREATE TABLE IF NOT EXISTS proyecto_bd.Persona (
     RUN VARCHAR(12) PRIMARY KEY,
     Contraseña VARCHAR(255) NOT NULL,
@@ -38,11 +37,10 @@ CREATE TABLE IF NOT EXISTS proyecto_bd.Nombre_Completo (
 );
 
 CREATE TABLE IF NOT EXISTS proyecto_bd.Numero_Telefonico (
-    RUN_Persona VARCHAR(12),
+    RUN_Persona VARCHAR(12) PRIMARY KEY,
     Codigo_del_pais INT NOT NULL,
     Codigo_del_area INT NOT NULL,
     Numero_unico BIGINT NOT NULL,
-    PRIMARY KEY (RUN_Persona, Codigo_del_pais, Codigo_del_area, Numero_unico),
     FOREIGN KEY (RUN_Persona) REFERENCES proyecto_bd.Persona(RUN)
 );
 
@@ -80,7 +78,7 @@ CREATE TABLE IF NOT EXISTS proyecto_bd.Numero_Telefonico_Trabajo (
     Codigo_del_Pais INT,
     Codigo_del_Area INT,
     Numero_Unico BIGINT,
-    PRIMARY KEY (ID_Apoderado, Codigo_del_Pais, Codigo_del_Area, Numero_Unico),
+    PRIMARY KEY (ID_Apoderado),
     FOREIGN KEY (ID_Apoderado) REFERENCES proyecto_bd.Apoderado(ID_Persona)
 );
 
@@ -128,10 +126,35 @@ CREATE TABLE IF NOT EXISTS proyecto_bd.Estudiante (
     FOREIGN KEY (ID_Familia) REFERENCES proyecto_bd.Info_Familia(ID_Familia)
 );
 
+CREATE TABLE IF NOT EXISTS proyecto_bd.Bloque_Horario (
+    Dia VARCHAR(10),
+    Hora_Inicio TIME,
+    Hora_Fin TIME,
+    PRIMARY KEY (Dia, Hora_Inicio, Hora_Fin)
+);
+
+CREATE TABLE IF NOT EXISTS proyecto_bd.Sala (
+    ID_Sala SERIAL PRIMARY KEY,
+    Nombre_Sala VARCHAR(100)
+);
+
+CREATE TABLE IF NOT EXISTS proyecto_bd.Curso (
+    ID_Curso SERIAL PRIMARY KEY,
+    ID_Docente VARCHAR(12),
+    ID_Sala INT,
+    Año INT NOT NULL,
+    Semestre INT NOT NULL,
+    Grado INT,
+    Letra CHAR(1),
+    FOREIGN KEY (ID_Docente) REFERENCES proyecto_bd.Docente(ID_Persona),
+    FOREIGN KEY (ID_Sala) REFERENCES proyecto_bd.Sala(ID_Sala)
+);
+
 CREATE TABLE IF NOT EXISTS proyecto_bd.Asignatura (
     ID_Asignatura SERIAL PRIMARY KEY,
-    ID_Cursos INT,
-    Nombre VARCHAR(100)
+    ID_Curso INT,
+    Nombre VARCHAR(100),
+    FOREIGN KEY (Id_Curso) REFERENCES proyecto_bd.Curso(ID_Curso)
 );
 
 CREATE TABLE IF NOT EXISTS proyecto_bd.Evaluacion (
@@ -142,13 +165,6 @@ CREATE TABLE IF NOT EXISTS proyecto_bd.Evaluacion (
     Ponderacion FLOAT NOT NULL,
     FOREIGN KEY (ID_Docente) REFERENCES proyecto_bd.Docente(ID_Persona),
     FOREIGN KEY (ID_Asignatura) REFERENCES proyecto_bd.Asignatura(ID_Asignatura)
-);
-
-CREATE TABLE IF NOT EXISTS proyecto_bd.Bloque_Horario (
-    Dia VARCHAR(10),
-    Hora_Inicio TIME,
-    Hora_Fin TIME,
-    PRIMARY KEY (Dia, Hora_Inicio, Hora_Fin)
 );
 
 CREATE TABLE IF NOT EXISTS proyecto_bd.Asistencia (
@@ -170,23 +186,6 @@ CREATE TABLE IF NOT EXISTS proyecto_bd.Justificacion (
     ID_Asistencia INT NOT NULL,
     Descripcion_Justificacion TEXT,
     FOREIGN KEY (ID_Asistencia) REFERENCES proyecto_bd.Asistencia(ID_Asistencia)
-);
-
-CREATE TABLE IF NOT EXISTS proyecto_bd.Sala (
-    ID_Sala SERIAL PRIMARY KEY,
-    Nombre_Sala VARCHAR(100)
-);
-
-CREATE TABLE IF NOT EXISTS proyecto_bd.Curso (
-    ID_Curso SERIAL PRIMARY KEY,
-    ID_Docente VARCHAR(12),
-    ID_Sala INT,
-    Año INT NOT NULL,
-    Semestre INT NOT NULL,
-    Grado INT,
-    Letra CHAR(1),
-    FOREIGN KEY (ID_Docente) REFERENCES proyecto_bd.Docente(ID_Persona),
-    FOREIGN KEY (ID_Sala) REFERENCES proyecto_bd.Sala(ID_Sala)
 );
 
 CREATE TABLE IF NOT EXISTS proyecto_bd.Actividad_Extracurricular (
@@ -249,21 +248,11 @@ CREATE TABLE IF NOT EXISTS proyecto_bd.apoderadoRESPONSABLEDEestudiante (
 CREATE TABLE IF NOT EXISTS proyecto_bd.docenteDICTAasignatura (
     ID_Asignatura INT,
     ID_Docente VARCHAR(12),
-    ID_CURSO INT,
-    FOREIGN KEY (ID_CURSO) REFERENCES proyecto_bd.Curso(ID_Curso),
     PRIMARY KEY (ID_Asignatura, ID_Docente),
     FOREIGN KEY (ID_Asignatura) REFERENCES proyecto_bd.Asignatura(ID_Asignatura),
     FOREIGN KEY (ID_Docente) REFERENCES proyecto_bd.Docente(ID_Persona)
 );
 
-
-----------------------------------------------------------------------------------
-----------------------------------------------------------------------------------
-----------------------------------------------------------------------------------
----------------------PROBLEMAAAAAAAAAAAAA-----------------------------------------
-----------------------------------------------------------------------------------
-----------------------------------------------------------------------------------
-----------------------------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS proyecto_bd.docenteACARGOactividad (
     ID_Actividad INT,
     ID_Docente VARCHAR(12),
@@ -271,12 +260,6 @@ CREATE TABLE IF NOT EXISTS proyecto_bd.docenteACARGOactividad (
     FOREIGN KEY (ID_Actividad) REFERENCES proyecto_bd.Actividad_Extracurricular(ID_Actividad),
     FOREIGN KEY (ID_Docente) REFERENCES proyecto_bd.Docente(ID_Persona)
 );
-----------------------------------------------------------------------------------
-----------------------------------------------------------------------------------
-----------------------------------------------------------------------------------
-----------------------------------------------------------------------------------
-----------------------------------------------------------------------------------
-----------------------------------------------------------------------------------
 
 CREATE TABLE IF NOT EXISTS proyecto_bd.actividadESTAENELbloquehorario (
     ID_Actividad INT,
