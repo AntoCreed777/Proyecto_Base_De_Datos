@@ -10,9 +10,7 @@ BEGIN
         
     FROM proyecto_bd.Asignatura a
     JOIN proyecto_bd.docenteDICTAasignatura da ON a.ID_Asignatura = da.ID_Asignatura
-    JOIN proyecto_bd.Docente d ON d.ID_Persona = da.Id_Docente
-    JOIN proyecto_bd.Persona p ON p.RUN = d.ID_Persona
-    JOIN proyecto_bd.Nombre_Completo nc ON p.RUN = nc.RUN_Persona
+    JOIN proyecto_bd.Nombre_Completo nc ON da.ID_Docente = nc.RUN_Persona
     WHERE a.ID_Curso = curso_id;
 END;    
 
