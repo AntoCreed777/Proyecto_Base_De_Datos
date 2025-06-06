@@ -7,7 +7,7 @@ INSERT INTO proyecto_bd.Genero (Nombre_Genero) VALUES
     ('Femenino'),
     ('No Binario'),
     ('Otro'),
-    ('Prefiero no decir');
+    ('Prefiero no decir');X
 
 -- POBLAR NACIONALIDAD
 
