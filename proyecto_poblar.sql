@@ -29,12 +29,12 @@ VALUES
     ('12345671-k', 'pass1secure', '2002-02-02', 2, 2, 2), -- APODERADO
     ('12345672-k', 'pass2secure', '2003-03-03', 3, 3, 3), -- APODERADO
     ('12345673-k', 'pass3secure', '2004-04-04', 4, 4, 4), -- APODERADO
-    ('12345674-k', 'pass4secure', '1980-05-05', 5, 5, 5), -- DOCENTE
-    ('12345675-k', 'pass5secure', '1981-06-06', 1, 1, 1), -- DOCENTE
-    ('12345676-k', 'pass6secure', '1990-07-07', 2, 2, 2), -- FUNCIONARIO
-    ('12345677-k', 'pass7secure', '1991-08-08', 3, 3, 3), -- FUNCIONARIO
-    ('12345678-k', 'pass8secure', '2005-09-09', 4, 4, 4), -- ESTUDIANTE
-    ('12345679-k', 'pass9secure', '2006-10-10', 5, 5, 5); -- ESTUDIANTE
+    ('12345674-k', 'pass4secure', '1980-05-05', 1, 5, 5), -- DOCENTE
+    ('12345675-k', 'pass5secure', '1981-06-06', 2, 1, 1), -- DOCENTE
+    ('12345676-k', 'pass6secure', '1990-07-07', 3, 2, 2), -- FUNCIONARIO
+    ('12345677-k', 'pass7secure', '1991-08-08', 4, 3, 3), -- FUNCIONARIO
+    ('12345678-k', 'pass8secure', '2005-09-09', 1, 4, 4), -- ESTUDIANTE
+    ('12345679-k', 'pass9secure', '2006-10-10', 2, 5, 5); -- ESTUDIANTE
 
 INSERT INTO proyecto_bd.Nombre_Completo 
 (RUN_Persona, Nombre, Apellido_paterno, Apellido_materno) 
