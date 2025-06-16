@@ -79,12 +79,12 @@ VALUES
 ('12345679-k', 'Región del Maule', 'Talca', 'Curicó', 'Calle Libertador Bernardo O’Higgins', 1023, 1010);
 
 INSERT INTO proyecto_bd.Apoderado 
-(ID_Persona, Lugar_de_Trabajo)
+(ID_Persona, Profesion, Lugar_de_Trabajo)
 VALUES 
-('12345670-k', 'Empresa ABC'),
-('12345671-k', 'Instituto XYZ'),
-('12345672-k', 'Hospital Local'),
-('12345673-k', 'Universidad Nacional');
+('12345670-k', 'Contadora', 'Empresa ABC'),
+('12345671-k', 'Educador Diferencial', 'Instituto XYZ'),
+('12345672-k', 'Médica', 'Hospital Local'),
+('12345673-k', 'Secretario Académico', 'Universidad Nacional');
 
 
 INSERT INTO proyecto_bd.Docente
