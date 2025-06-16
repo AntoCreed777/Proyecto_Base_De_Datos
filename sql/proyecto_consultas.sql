@@ -1,4 +1,42 @@
+
+
 -- Consulta para asignatura y profesores de un curso
+
+
+-- Obtener nombre completo de persona
+CREATE OR REPLACE FUNCTION proyecto_bd.obtener_nombre_completo(ID_Persona VARCHAR(12))
+RETURNS VARCHAR(100) AS $$
+DECLARE
+    nombre_completo VARCHAR(100);
+BEGIN
+    SELECT 
+        (nc.nombre || ' ' || nc.Apellido_paterno || ' ' || nc.Apellido_materno)::VARCHAR(100) INTO nombre_completo
+    FROM proyecto_bd.Nombre_Completo nc
+    WHERE nc.RUN_Persona = obtener_nombre_completo.ID_Persona;
+
+    RETURN nombre_completo;
+END;
+
+$$ LANGUAGE plpgsql;
+
+-- Consulta para obtener el numero telefonico de una persona
+CREATE OR REPLACE FUNCTION proyecto_bd.obtener_numero_telefonico(ID_Persona VARCHAR(12))
+RETURNS VARCHAR(20) AS $$
+DECLARE
+    numero_telefonico VARCHAR(20);
+BEGIN
+    SELECT 
+        (nt.Codigo_del_pais || ' ' || nt.Codigo_del_area || ' ' || nt.Numero_unico)::VARCHAR(20) INTO numero_telefonico
+    FROM proyecto_bd.Numero_Telefonico nt
+    WHERE nt.RUN_Persona = obtener_numero_telefonico.ID_Persona;
+    RETURN numero_telefonico;
+END;
+
+$$ LANGUAGE plpgsql;
+
+SELECT * FROM proyecto_bd.obtener_numero_telefonico('12345678-K'); -- Retorna el numero telefonico de la persona con RUN 12345678-K
+
+-- Consulta para obtener asignaturas y profesores de un curso
 
 CREATE OR REPLACE FUNCTION proyecto_bd.obtener_asignaturas_y_profesores(curso_id INT)
 RETURNS TABLE(asignatura VARCHAR, docente VARCHAR) AS $$
@@ -6,11 +44,10 @@ BEGIN
     RETURN QUERY
     SELECT 
         a.nombre AS Asignatura, 
-        (nc.nombre || ' ' || nc.Apellido_paterno || ' ' || nc.Apellido_materno)::VARCHAR AS Docente
-        
+        proyecto_bd.obtener_nombre_completo(da.ID_Docente) AS Docente
+
     FROM proyecto_bd.Asignatura a
     JOIN proyecto_bd.docenteDICTAasignatura da ON a.ID_Asignatura = da.ID_Asignatura
-    JOIN proyecto_bd.Nombre_Completo nc ON da.ID_Docente = nc.RUN_Persona
     WHERE a.ID_Curso = curso_id;
 END;    
 
@@ -57,4 +94,64 @@ END;
 
 $$ LANGUAGE plpgsql;
 
-SELECT * FROM proyecto_bd.obtener_horario_curso(1); -- Retorna los dias y horas de las asignaturas de un curso
+SELECT * FROM proyecto_bd.obtener_horario_curso(1); -- Retorna los dias y horas de las asignaturas de un curso  
+
+
+-- VER NOTAS DE ASIGNATURA DE CURSO
+
+CREATE OR REPLACE FUNCTION proyecto_bd.obtener_notas_curso(ID_Asignatura INT) 
+RETURNS TABLE (Estudiante VARCHAR, Nota NUMERIC) AS $$
+BEGIN
+    RETURN QUERY
+    SELECT 
+        proyecto_bd.obtener_nombre_completo(re.ID_Estudiante) AS Estudiante,
+        re.Nota AS Nota
+    FROM proyecto_bd.estudianteRINDEevaluacion re
+    JOIN proyecto_bd.Evaluacion e ON re.ID_Evaluacion = e.ID_Evaluacion
+    WHERE e.ID_Asignatura = obtener_notas_curso.ID_Asignatura;
+END;
+
+$$ LANGUAGE plpgsql;
+
+SELECT * FROM proyecto_bd.obtener_notas_curso(1); -- Retorna las notas de la asignatura con ID 1
+
+
+-- Consulta datos apoderados de estudiante
+
+CREATE OR REPLACE FUNCTION proyecto_bd.obtener_apoderados_estudiante(ID_Estudiante VARCHAR(12))
+RETURNS TABLE (Apoderado VARCHAR, Telefono VARCHAR, Relacion VARCHAR, Lugar_de_Trabajo VARCHAR, Profesion VARCHAR) AS $$
+BEGIN
+    RETURN QUERY
+    SELECT 
+        proyecto_bd.obtener_nombre_completo(ar.ID_Apoderado) AS Apoderado,
+        proyecto_bd.obtener_numero_telefonico(ar.ID_Apoderado) AS Telefono,
+        ar.Relacion AS Relacion,
+        a.Lugar_de_Trabajo AS Lugar_de_Trabajo,
+        a.Profesion AS Profesion
+    FROM proyecto_bd.apoderadoRESPONSABLEDEestudiante ar
+    JOIN proyecto_bd.Apoderado a ON ar.ID_Apoderado = a.ID_Persona
+    WHERE ar.ID_Estudiante = obtener_apoderados_estudiante.ID_Estudiante;
+END;
+
+$$ LANGUAGE plpgsql;
+
+
+SELECT * FROM proyecto_bd.obtener_apoderados_estudiante('12345678-k'); -- Retorna los apoderados del estudiante con RUN 12345678
+
+-- Obtener asistencia de curso a asignatura
+CREATE OR REPLACE FUNCTION proyecto_bd.obtener_asistencia_curso(ID_Asignatura INT)
+RETURNS TABLE (Estudiante VARCHAR(100), Asistencia VARCHAR(20), Fecha DATE, Hora TIME) AS $$
+BEGIN
+    RETURN QUERY
+    SELECT 
+        proyecto_bd.obtener_nombre_completo(a.ID_Estudiante) AS Estudiante,
+        a.Estado AS Asistencia,
+        a.Fecha AS Fecha,
+        a.Hora_Inicio AS Hora
+    FROM proyecto_bd.Asistencia a
+    WHERE a.ID_Asignatura = obtener_asistencia_curso.ID_Asignatura;
+END;
+
+$$ LANGUAGE plpgsql;
+
+SELECT * FROM proyecto_bd.obtener_asistencia_curso(1); -- Retorna la asistencia de la asignatura con ID 1
