@@ -30,7 +30,8 @@ CREATE TABLE IF NOT EXISTS proyecto_bd.Persona (
 
 CREATE TABLE IF NOT EXISTS proyecto_bd.Nombre_Completo (
     RUN_Persona VARCHAR(12) PRIMARY KEY,
-    Nombre VARCHAR(50),
+    Primer_nombre VARCHAR(50),
+    Segundo_nombre VARCHAR(50),
     Apellido_paterno VARCHAR(50),
     Apellido_materno VARCHAR(50),
     FOREIGN KEY (RUN_Persona) REFERENCES proyecto_bd.Persona(RUN)
@@ -40,7 +41,7 @@ CREATE TABLE IF NOT EXISTS proyecto_bd.Numero_Telefonico (
     RUN_Persona VARCHAR(12) PRIMARY KEY,
     Codigo_del_pais INT NOT NULL,
     Codigo_del_area INT NOT NULL,
-    Numero_unico BIGINT NOT NULL,
+    Numero_unico BIGINT NOT NULL UNIQUE,
     FOREIGN KEY (RUN_Persona) REFERENCES proyecto_bd.Persona(RUN)
 );
 
@@ -56,43 +57,43 @@ CREATE TABLE IF NOT EXISTS proyecto_bd.Lugar_de_Residencia (
 );
 
 CREATE TABLE IF NOT EXISTS proyecto_bd.Apoderado (
-    ID_Persona VARCHAR(12) PRIMARY KEY,
+    RUN_Persona VARCHAR(12) PRIMARY KEY,
     Profesion VARCHAR(100),
     Lugar_de_Trabajo VARCHAR(255),
-    FOREIGN KEY (ID_Persona) REFERENCES proyecto_bd.Persona(RUN)
+    FOREIGN KEY (RUN_Persona) REFERENCES proyecto_bd.Persona(RUN)
 );
 
 CREATE TABLE IF NOT EXISTS proyecto_bd.Direccion_de_Trabajo (
-    ID_Apoderado VARCHAR(12) PRIMARY KEY,
+    RUN_Apoderado VARCHAR(12) PRIMARY KEY,
     Region VARCHAR(100),
     Ciudad VARCHAR(100),
     Comuna VARCHAR(100),
     Calle VARCHAR(100),
     Numero_Casa INT,
     Numero_Dpt INT,
-    FOREIGN KEY (ID_Apoderado) REFERENCES proyecto_bd.Apoderado(ID_Persona)
+    FOREIGN KEY (RUN_Apoderado) REFERENCES proyecto_bd.Apoderado(RUN_Persona)
 );
 
 CREATE TABLE IF NOT EXISTS proyecto_bd.Numero_Telefonico_Trabajo (
-    ID_Apoderado VARCHAR(12),
+    RUN_Apoderado VARCHAR(12),
     Codigo_del_Pais INT,
     Codigo_del_Area INT,
-    Numero_Unico BIGINT,
-    PRIMARY KEY (ID_Apoderado),
-    FOREIGN KEY (ID_Apoderado) REFERENCES proyecto_bd.Apoderado(ID_Persona)
+    Numero_Unico BIGINT NOT NULL UNIQUE,
+    PRIMARY KEY (RUN_Apoderado),
+    FOREIGN KEY (RUN_Apoderado) REFERENCES proyecto_bd.Apoderado(RUN_Persona)
 );
 
 CREATE TABLE IF NOT EXISTS proyecto_bd.Funcionario (
-    ID_Persona VARCHAR(12) PRIMARY KEY,
+    RUN_Persona VARCHAR(12) PRIMARY KEY,
     Titulo_Academico VARCHAR(100),
     Cargo VARCHAR(50),
     Rol VARCHAR(50),
-    FOREIGN KEY (ID_Persona) REFERENCES proyecto_bd.Persona(RUN)
+    FOREIGN KEY (RUN_Persona) REFERENCES proyecto_bd.Persona(RUN)
 );
 
 CREATE TABLE IF NOT EXISTS proyecto_bd.Docente (
-    ID_Persona VARCHAR(12) PRIMARY KEY,
-    FOREIGN KEY (ID_Persona) REFERENCES proyecto_bd.Persona(RUN)
+    RUN_Persona VARCHAR(12) PRIMARY KEY,
+    FOREIGN KEY (RUN_Persona) REFERENCES proyecto_bd.Persona(RUN)
 );
 
 CREATE TABLE IF NOT EXISTS proyecto_bd.Info_Familia (

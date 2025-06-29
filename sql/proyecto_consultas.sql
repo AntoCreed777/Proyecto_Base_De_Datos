@@ -155,3 +155,23 @@ END;
 $$ LANGUAGE plpgsql;
 
 SELECT * FROM proyecto_bd.obtener_asistencia_curso(1); -- Retorna la asistencia de la asignatura con ID 1
+
+
+'''
+PENDIENTE:
+
+X - Consulta y emision del compendio de notas del Alumno.
+X - Consulta del horario de un curso.
+X - Consulta de las Asignaturas y Profesores de un curso.
+X - Consulta de los Alumnos pertenecientes a un curso.
+X - Emision de la lista de Alumnos de un curso.
+X - Consulta de informacion de un Alumno.
+X - Emision del Informe de asistencia a las distintas Asignaturas.
+
+- Consulta sobre informacion de la familia del Alumno.
+- Consulta de los datos de un Profesor
+- Ingreso de Notas restringido por docentes.
+- Emision del Informe socioeconomico del Alumno.
+- Emision del certificado de Alumno regular del Alumno.
+- Emision del Comprobante de Matricula del Alumno.
+'''
