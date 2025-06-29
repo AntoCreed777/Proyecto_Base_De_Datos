@@ -67,6 +67,74 @@
 > dos2unix init_venv.sh
 > ```
 
+## Solución a problemas comunes
+
+<details>
+  <summary>Error al instalar psycopg2</summary>
+
+Si encuentras el siguiente error al intentar instalar las dependencias del proyecto:
+
+```bash
+Error: pg_config executable not found.
+```
+
+Esto ocurre porque `psycopg2` requiere que las bibliotecas de desarrollo de PostgreSQL estén instaladas en el sistema. Sigue estos pasos para solucionarlo según tu sistema operativo:
+
+#### **Linux (Debian/Ubuntu)**
+1. Instala las dependencias necesarias:
+   
+    ```bash
+    sudo apt update
+    sudo apt install -y libpq-dev python3-dev
+    ````
+
+2. Vuelve a instalar las dependencias del proyecto:
+   
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+#### **Linux (Fedora/RHEL/CentOS)**
+
+1. Instala las dependencias necesarias:
+
+    ```bash
+    sudo dnf install -y postgresql-devel python3-devel
+    ```
+
+2. Vuelve a instalar las dependencias del proyecto:
+
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+#### **macOS**
+
+1. Si usas Homebrew, instala PostgreSQL:
+
+    ```bash
+    brew install postgresql
+    ```
+
+2. Vuelve a instalar las dependencias del proyecto:
+
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+#### **Alternativa: Usar `psycopg2-binary`**
+
+Si no puedes instalar las bibliotecas mencionadas o necesitas una solución rápida, puedes instalar la versión binaria de `psycopg2`:
+
+```bash
+pip install psycopg2-binary
+```
+
+> **Nota:** Esta versión es adecuada para desarrollo, pero no se recomienda para entornos de producción.
+
+Con estas soluciones, deberías poder instalar `psycopg2` y continuar con la configuración del proyecto. Si el problema persiste, revisa que tu entorno virtual esté correctamente activado y que las dependencias estén actualizadas.
+</details>
+
 ## Comandos previos
 
 Antes de iniciar el servidor, es necesario aplicar las migraciones de la base de datos para asegurar que la estructura esté actualizada. 
