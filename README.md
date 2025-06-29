@@ -138,7 +138,11 @@ Con estas soluciones, deberías poder instalar `psycopg2` y continuar con la con
 ## Importar la base de datos PostgreSQL
 
 Para utilizar el programa es necesario hacer la conexion con nuestra base de datos, que en este caso es local.  
- [Ver explicación en video](https://www.youtube.com/watch?v=A72owYF4m_c)
+
+1. Primero descargar el programa pgAdmin4 en este link [Descargar PgAdmin](https://www.pgadmin.org/download/). Para el proceso de instalacion ver [este video](https://www.youtube.com/watch?v=w9ax9-s2jbE).
+
+2. Luego necesitaremos crear una base de datos para el proyecto. 
+[Ver explicación en video](https://www.youtube.com/watch?v=A72owYF4m_c). Usar los valores de abajo al momento de crearla.
 
 
 En el archivo `/Proyecto_Base_De_Datos/settings.py`, asegúrate de configurar:
