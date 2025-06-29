@@ -67,6 +67,20 @@
 > dos2unix init_venv.sh
 > ```
 
+## Importar la base de datos PostgreSQL
+
+Para utilizar el programa es necesario hacer la conexion con nuestra base de datos, que en este caso es local.  
+ 
+[Ver explicación en video](https://www.youtube.com/watch?v=vVCvyP7ya_4)
+
+En el archivo `/GRUPO8_DS/settings.py`, asegúrate de configurar:
+
+```python
+NAME =     "Proyecto-BDD"
+USER =     "postgres"
+PASSWORD = "tu_contraseña_en_PgAdmin4"
+```
+
 ## Comandos previos
 
 Antes de iniciar el servidor, es necesario aplicar las migraciones de la base de datos para asegurar que la estructura esté actualizada. 
