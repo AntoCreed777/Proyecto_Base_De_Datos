@@ -67,7 +67,7 @@
 > dos2unix init_venv.sh
 > ```
 
-## Solución a problemas comunes
+## Solución a problemas comunes durante la Instalación
 
 <details>
   <summary>Error al instalar psycopg2</summary>
@@ -134,6 +134,20 @@ pip install psycopg2-binary
 
 Con estas soluciones, deberías poder instalar `psycopg2` y continuar con la configuración del proyecto. Si el problema persiste, revisa que tu entorno virtual esté correctamente activado y que las dependencias estén actualizadas.
 </details>
+
+## Importar la base de datos PostgreSQL
+
+Para utilizar el programa es necesario hacer la conexion con nuestra base de datos, que en este caso es local.  
+ [Ver explicación en video](https://www.youtube.com/watch?v=A72owYF4m_c)
+
+
+En el archivo `/Proyecto_Base_De_Datos/settings.py`, asegúrate de configurar:
+
+```python
+NAME =     "Proyecto-BDD"
+USER =     "postgres"
+PASSWORD = "tu_contraseña_en_PgAdmin4"
+```
 
 ## Comandos previos
 
