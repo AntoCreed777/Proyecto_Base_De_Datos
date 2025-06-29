@@ -70,8 +70,8 @@
 ## Importar la base de datos PostgreSQL
 
 Para utilizar el programa es necesario hacer la conexion con nuestra base de datos, que en este caso es local.  
- 
-[Ver explicación en video](https://www.youtube.com/watch?v=vVCvyP7ya_4)
+ [Ver explicación en video](https://www.youtube.com/watch?v=A72owYF4m_c)
+
 
 En el archivo `/GRUPO8_DS/settings.py`, asegúrate de configurar:
 
