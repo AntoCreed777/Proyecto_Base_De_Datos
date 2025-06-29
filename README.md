@@ -73,7 +73,7 @@ Para utilizar el programa es necesario hacer la conexion con nuestra base de dat
  [Ver explicación en video](https://www.youtube.com/watch?v=A72owYF4m_c)
 
 
-En el archivo `/GRUPO8_DS/settings.py`, asegúrate de configurar:
+En el archivo `/Proyecto_Base_De_Datos/settings.py`, asegúrate de configurar:
 
 ```python
 NAME =     "Proyecto-BDD"
