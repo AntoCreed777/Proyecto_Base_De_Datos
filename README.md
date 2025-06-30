@@ -157,12 +157,26 @@ PASSWORD = "tu_contraseña_en_PgAdmin4"
 
 Antes de iniciar el servidor, es necesario aplicar las migraciones de la base de datos para asegurar que la estructura esté actualizada. 
 
-Ejecuta el siguiente comando:
+Ejecuta los siguientes comandos:
+```bash
+python3 manage.py makemigrations
+```
 
 ```bash
 python3 manage.py migrate
 ```
 Esto preparará la base de datos para el correcto funcionamiento del proyecto.
+
+Luego, para poblar la base de datos con datos de prueba ejecutar:
+
+```bash
+python3 manage.py populate_db
+```
+
+En el caso de querer eliminar los datos se puede usar el comando: 
+```bash
+python3 manage.py clear_db
+```
 
 ## Ejecución del proyecto
 
