@@ -200,7 +200,7 @@ class Info_Familia(models.Model):
     )
 
     def __str__(self):
-        return f"{self.RUN_persona} {self.profesion} {self.lugar_de_trabajo}"
+        return f"{self.nombre_familia} - {self.numero_integrantes} integrantes"
     
 
 class Estudiante(models.Model):
@@ -272,7 +272,7 @@ class Curso(models.Model):
     letra = models.CharField(max_length=1, default='A')
 
     def __str__(self):
-        return f"{self.nombre_curso} ({self.codigo_curso})"
+        return f"{self.grado} ({self.letra}) - {self.anio} Semestre {self.semestre}, Docente: {self.id_docente}, Sala: {self.id_sala}"
     
 class Asignatura(models.Model):
     id_curso = models.ForeignKey(Curso, on_delete=models.CASCADE)
