@@ -1,0 +1,32 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Mi Sitio{% endblock %}</title>
+    <!-- Conexión al archivo CSS -->
+    <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
+</head>
+<body>
+
+    <!-- Header con logo a la izquierda y links a la derecha -->
+    <header class="header">
+        <div class="header-left">
+            <img src="{% static 'images/logo_escuela.png' %}" alt="Logo" class="logo">
+            <span>Escuela Diego Portales D-538</span>
+        </div>
+        <div class="header-right">
+            <a href="#">Inicio</a>
+            <a href="#">Acerca de</a>
+            <a href="#">Contacto</a>
+        </div>
+    </header>
+
+    <!-- Contenido de cada página -->
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+</body>
+</html>
