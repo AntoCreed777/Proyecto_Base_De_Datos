@@ -1,199 +1,307 @@
-# Proyecto Base de Datos
-## Integrantes del grupo
-- [Valeria Paulette Quiroga Carrere](https://github.com/vq00001) **(2023453609)**
-- [Antonio Jesus Benavides Puentes](https://github.com/AntoCreed777) **(2023455954)**
-- [Lucas Daniel Morales Oyanedel](https://github.com/Falling-Bridge) **(2023441490)**
-- [Pablo Esteban Villagran Hermanns](https://github.com/Pvilla14) **(2023439231)**
-
-## Tecnologías utilizadas en el proyecto
+# 🗄️ Proyecto Base de Datos
 
 <div align="center">
 
-### Herramientas de desarrollo y control de versiones
-<a href="https://skillicons.dev">
-  <img src="https://skillicons.dev/icons?i=git,github,vscode&perline=5" />
-</a>
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
+![Django](https://img.shields.io/badge/Django-092E20?style=for-the-badge&logo=django&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
 
-### Base de datos y lenguaje de programación
-<a href="https://skillicons.dev">
-  <img src="https://skillicons.dev/icons?i=postgres,python&perline=5" />
-</a>
-
-### Framework utilizado
-<a href="https://skillicons.dev">
-  <img src="https://skillicons.dev/icons?i=django&perline=5" />
-</a>
+Un sistema de gestión académica desarrollado con Django y PostgreSQL
 
 </div>
 
-## Requisitos previos
+## 👥 Integrantes del Equipo
 
-- Python 3 instalado
-- Git Bash, WSL, macOS Terminal, o cualquier terminal compatible con bash
+| Nombre | GitHub | Matrícula |
+|--------|--------|-----------|
+| Valeria Paulette Quiroga Carrere | [@vq00001](https://github.com/vq00001) | 2023453609 |
+| Antonio Jesus Benavides Puentes | [@AntoCreed777](https://github.com/AntoCreed777) | 2023455954 |
+| Lucas Daniel Morales Oyanedel | [@Falling-Bridge](https://github.com/Falling-Bridge) | 2023441490 |
+| Pablo Esteban Villagran Hermanns | [@Pvilla14](https://github.com/Pvilla14) | 2023439231 |
 
-## Instalación y configuración
+## 📋 Tabla de Contenidos
 
-1. **Clona este repositorio:**
-   ```bash
-   git clone https://github.com/AntoCreed777/Proyecto_Base_De_Datos
-   cd Proyecto_Base_De_Datos
-   ```
+- [🚀 Inicio Rápido](#-inicio-rápido)
+- [📋 Requisitos Previos](#-requisitos-previos)
+- [⚙️ Instalación](#️-instalación)
+- [🔧 Configuración](#-configuración)
+- [🗄️ Base de Datos](#️-base-de-datos)
+- [▶️ Ejecución](#️-ejecución)
+- [🛠️ Solución de Problemas](#️-solución-de-problemas)
+- [🤝 Contribuir](#-contribuir)
 
-2. **Crea un entorno virtual llamado `venv`:**
-   ```bash
-   python3 -m venv venv
-   ```
+## 🚀 Inicio Rápido
 
-3. **Inicializa el entorno virtual e instala las dependencias:**
-   ```bash
-   source init_venv.sh
-   ```
-   El script detecta automáticamente tu sistema operativo y activa el entorno virtual correctamente en Windows, Linux o macOS.
+```bash
+# Clonar el repositorio
+git clone https://github.com/AntoCreed777/Proyecto_Base_De_Datos
+cd Proyecto_Base_De_Datos
 
-> [!NOTE]
-> - Si el script no se ejecuta por permisos (en Linux/macOS), asígnale permisos de ejecución:
->   ```bash
->   chmod +x init_venv.sh
->   ```
-> - En Windows, si tienes problemas, puedes activar el entorno manualmente y luego instalar las dependencias:
->   ```powershell
->   .\venv\Scripts\Activate.ps1
->   pip install -r requirements.txt
->   ```
+# Configurar entorno virtual
+source init_venv.sh
 
-> [!WARNING]
-> Si en linux no se ejecuta el script, intente con el siguiente comando antes de volver a intentarlo
-> ``` bash
-> dos2unix init_venv.sh
-> ```
+# Configurar base de datos PostgreSQL (ver sección Base de Datos)
+# Editar proyecto_base_de_datos/settings.py con tus credenciales
 
-## Solución a problemas comunes durante la Instalación
+# Preparar base de datos
+python3 manage.py migrate
+python3 manage.py populate_db
+
+# Ejecutar servidor
+python3 manage.py runserver
+```
+
+## 📋 Requisitos Previos
+
+- **Python 3.8+** 
+- **PostgreSQL** (con pgAdmin4 recomendado)
+- **Git**
+- Terminal compatible con bash (Git Bash, WSL, Terminal de macOS/Linux)
+
+## ⚙️ Instalación
+
+### 1️⃣ Clonar el Repositorio
+
+```bash
+git clone https://github.com/AntoCreed777/Proyecto_Base_De_Datos
+cd Proyecto_Base_De_Datos
+```
+
+### 2️⃣ Configurar Entorno Virtual
+
+```bash
+# Crear entorno virtual
+python3 -m venv venv
+
+# Activar e instalar dependencias automáticamente
+source init_venv.sh
+```
 
 <details>
-  <summary>Error al instalar psycopg2</summary>
+<summary>🔧 Activación manual del entorno</summary>
 
-Si encuentras el siguiente error al intentar instalar las dependencias del proyecto:
+**Linux/macOS:**
+```bash
+source venv/bin/activate
+pip install -r requirements.txt
+```
 
+**Windows (PowerShell):**
+```powershell
+.\venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+```
+
+**Windows (CMD):**
+```cmd
+venv\Scripts\activate.bat
+pip install -r requirements.txt
+```
+
+</details>
+
+## 🔧 Configuración
+
+### Configuración de la Base de Datos
+
+Edita el archivo `proyecto_base_de_datos/settings.py` y configura la conexión a PostgreSQL:
+
+```python
+# Configuración de la base de datos en settings.py
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'proyecto_bd',              # Nombre de tu base de datos
+        'USER': 'tu_usuario_postgresql',    # Tu usuario de PostgreSQL
+        'PASSWORD': 'tu_contraseña',        # Tu contraseña de PostgreSQL
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
+}
+```
+
+### Ejemplo de configuración
+
+```python
+# Ejemplo real de configuración
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'proyecto_bd',
+        'USER': 'postgres',
+        'PASSWORD': 'mipassword123',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
+}
+```
+
+### Otras configuraciones importantes
+
+También puedes modificar en `settings.py`:
+
+```python
+# Configuración regional
+TIME_ZONE = 'America/Santiago'
+LANGUAGE_CODE = 'es-cl'
+
+# Para desarrollo local
+DEBUG = True
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0']
+```
+
+> ⚠️ **Importante:** Para producción, asegúrate de cambiar `DEBUG = False` y configurar `ALLOWED_HOSTS` apropiadamente.
+
+## 🗄️ Base de Datos
+
+### Configuración de PostgreSQL
+
+1. **Instalar pgAdmin4:** [Descargar aquí](https://www.pgadmin.org/download/)
+   - 📺 [Video tutorial de instalación](https://www.youtube.com/watch?v=w9ax9-s2jbE)
+
+2. **Crear base de datos:**
+   - 📺 [Video tutorial](https://www.youtube.com/watch?v=A72owYF4m_c)
+   - Usar los valores configurados en tu archivo `.env`
+
+### Preparar la Base de Datos
+
+```bash
+# Crear y aplicar migraciones
+python3 manage.py makemigrations
+python3 manage.py migrate
+
+# Poblar con datos de prueba
+python3 manage.py populate_db
+```
+
+### Comandos Útiles
+
+```bash
+# Limpiar datos de prueba
+python3 manage.py clear_db
+
+# Crear superusuario
+python3 manage.py createsuperuser
+```
+
+## ▶️ Ejecución
+
+```bash
+# Iniciar servidor de desarrollo
+python3 manage.py runserver
+```
+
+El servidor estará disponible en: **http://127.0.0.1:8000/**
+
+### Opciones Adicionales
+
+```bash
+# Usar puerto personalizado
+python3 manage.py runserver 8080
+
+# Permitir acceso desde cualquier IP
+python3 manage.py runserver 0.0.0.0:8000
+```
+
+## 🛠️ Solución de Problemas
+
+<details>
+<summary>❌ Error al instalar psycopg2</summary>
+
+### Problema
 ```bash
 Error: pg_config executable not found.
 ```
 
-Esto ocurre porque `psycopg2` requiere que las bibliotecas de desarrollo de PostgreSQL estén instaladas en el sistema. Sigue estos pasos para solucionarlo según tu sistema operativo:
+### Solución por Sistema Operativo
 
-#### **Linux (Debian/Ubuntu)**
-1. Instala las dependencias necesarias:
-   
-    ```bash
-    sudo apt update
-    sudo apt install -y libpq-dev python3-dev
-    ````
+**🐧 Linux (Debian/Ubuntu):**
+```bash
+sudo apt update
+sudo apt install -y libpq-dev python3-dev
+pip install -r requirements.txt
+```
 
-2. Vuelve a instalar las dependencias del proyecto:
-   
-    ```bash
-    pip install -r requirements.txt
-    ```
+**🐧 Linux (Fedora/RHEL/CentOS):**
+```bash
+sudo dnf install -y postgresql-devel python3-devel
+pip install -r requirements.txt
+```
 
-#### **Linux (Fedora/RHEL/CentOS)**
+**🍎 macOS:**
+```bash
+brew install postgresql
+pip install -r requirements.txt
+```
 
-1. Instala las dependencias necesarias:
-
-    ```bash
-    sudo dnf install -y postgresql-devel python3-devel
-    ```
-
-2. Vuelve a instalar las dependencias del proyecto:
-
-    ```bash
-    pip install -r requirements.txt
-    ```
-
-#### **macOS**
-
-1. Si usas Homebrew, instala PostgreSQL:
-
-    ```bash
-    brew install postgresql
-    ```
-
-2. Vuelve a instalar las dependencias del proyecto:
-
-    ```bash
-    pip install -r requirements.txt
-    ```
-
-#### **Alternativa: Usar `psycopg2-binary`**
-
-Si no puedes instalar las bibliotecas mencionadas o necesitas una solución rápida, puedes instalar la versión binaria de `psycopg2`:
-
+**🚀 Solución Rápida (Desarrollo):**
 ```bash
 pip install psycopg2-binary
 ```
 
-> **Nota:** Esta versión es adecuada para desarrollo, pero no se recomienda para entornos de producción.
+> ⚠️ `psycopg2-binary` es solo para desarrollo, no para producción.
 
-Con estas soluciones, deberías poder instalar `psycopg2` y continuar con la configuración del proyecto. Si el problema persiste, revisa que tu entorno virtual esté correctamente activado y que las dependencias estén actualizadas.
 </details>
 
-## Importar la base de datos PostgreSQL
+<details>
+<summary>🐧 Script no ejecuta en Linux</summary>
 
-Para utilizar el programa es necesario hacer la conexion con nuestra base de datos, que en este caso es local.  
+### Problema
+El script `init_venv.sh` no se ejecuta por permisos o formato de líneas.
 
-1. Primero descargar el programa pgAdmin4 en este link [Descargar PgAdmin](https://www.pgadmin.org/download/). Para el proceso de instalacion ver [este video](https://www.youtube.com/watch?v=w9ax9-s2jbE).
-
-2. Luego necesitaremos crear una base de datos para el proyecto. 
-[Ver explicación en video](https://www.youtube.com/watch?v=A72owYF4m_c). Usar los valores de abajo al momento de crearla.
-
-
-En el archivo `/Proyecto_Base_De_Datos/settings.py`, asegúrate de configurar:
-
-```python
-NAME =     "Proyecto-BDD"
-USER =     "postgres"
-PASSWORD = "tu_contraseña_en_PgAdmin4"
-```
-
-## Comandos previos
-
-Antes de iniciar el servidor, es necesario aplicar las migraciones de la base de datos para asegurar que la estructura esté actualizada. 
-
-Ejecuta los siguientes comandos:
+### Solución
 ```bash
-python3 manage.py makemigrations
+# Corregir formato de líneas
+dos2unix init_venv.sh
+
+# Dar permisos de ejecución
+chmod +x init_venv.sh
+
+# Ejecutar
+source init_venv.sh
 ```
 
-```bash
-python3 manage.py migrate
-```
-Esto preparará la base de datos para el correcto funcionamiento del proyecto.
+</details>
 
-Luego, para poblar la base de datos con datos de prueba ejecutar:
+<details>
+<summary>🔌 Error de conexión a la base de datos</summary>
 
-```bash
-python3 manage.py populate_db
-```
+### Problema
+Django no puede conectarse a PostgreSQL.
 
-En el caso de querer eliminar los datos se puede usar el comando: 
-```bash
-python3 manage.py clear_db
-```
+### Verificaciones
+1. **PostgreSQL está ejecutándose:**
+   ```bash
+   # Linux/macOS
+   sudo systemctl status postgresql
+   
+   # Windows: Verificar en Servicios
+   ```
 
-## Ejecución del proyecto
+2. **Credenciales correctas en `settings.py`:**
+   ```python
+   DATABASES = {
+       'default': {
+           'ENGINE': 'django.db.backends.postgresql',
+           'NAME': 'nombre_correcto_bd',
+           'USER': 'usuario_correcto',
+           'PASSWORD': 'contraseña_correcta',
+           'HOST': 'localhost',
+           'PORT': '5432',
+       }
+   }
+   ```
 
-Para iniciar el servidor de desarrollo de Django, ejecuta:
+3. **Base de datos existe:**
+   - Verificar en pgAdmin4 que la base de datos existe
+   - El usuario tiene permisos de acceso
 
-```bash
-python3 manage.py runserver
-```
+</details>
 
-Esto levantará el servidor en `http://127.0.0.1:8000/` por defecto.
+---
 
-> [!NOTE]
-> Si el puerto 8000 ya está en uso o tienes algún conflicto, puedes cambiar el puerto por cualquier otro disponible agregándolo al comando. Por ejemplo, para usar el puerto 8080:
-> ```bash
-> python3 manage.py runserver 8080
-> ```
-> También puedes especificar la IP y el puerto:
-> ```bash
-> python3 manage.py runserver 0.0.0.0:8080
-> ```
+<div align="center">
+
+**Desarrollado con ❤️ por el equipo de Base de Datos**
+
+</div>
