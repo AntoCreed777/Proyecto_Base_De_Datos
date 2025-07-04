@@ -1,0 +1,24 @@
+{% extends "Layouts/base.html" %}
+{% block content %}
+<h2>Ver Estudiantes por Curso</h2>
+
+<!-- Formulario para ingresar curso_id -->
+<form method="post">
+    {% csrf_token %}
+    <label for="curso_id">ID del Curso:</label>
+    <input type="number" name="curso_id" id="curso_id" required value="{{ curso_id }}">
+    <button type="submit">Buscar</button>
+</form>
+
+<!-- Mostrar resultados si hay -->
+{% if estudiantes %}
+    <h3>Estudiantes del curso {{ curso_id }}</h3>
+    <ul>
+        {% for estudiante in estudiantes %}
+            <li>{{ estudiante }}</li>
+        {% endfor %}
+    </ul>
+{% elif curso_id %}
+    <p>No se encontraron estudiantes para el curso {{ curso_id }}.</p>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends "Layouts/base.html" %}
+
+{% block content %}
+
+<form method="post">
+    {% csrf_token %}
+    <label for="curso_id">ID del Curso:</label>
+    <input type="number" name="curso_id" id="curso_id" required value="{{ curso_id }}">
+    <button type="submit">Buscar</button>
+</form>
+
+{% if horarios %}
+
+    <h1>Horario Asignaturas curso {{curso_id}} </h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre Asignatura</th>
+                <th>Dia</th>
+                <th>Hora Inicio</th>
+                <th>Hora Fin</th>
+            </tr>
+        </thead>
+    
+        <tbody>
+            {% for h in horarios %}
+            <tr>
+                <td>{{ h.Nombre }}</td>
+                <td>{{ h.Dia }}</td>
+                <td>{{ h.Hora_inicio }}</td>
+                <td>{{ h.Hora_fin }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% elif curso_id %}
+    <p>No hay registros de asistencia para la asignatura {{ curso_id }}.</p>
+{% endif %}
+
+{% endblock %}

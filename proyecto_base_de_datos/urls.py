@@ -17,10 +17,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from accounts.views import login
-from Docente.views import ver_asistencia
+from Docente.views import ver_asistencia_curso, ver_lista_curso, ver_horario_asignaturas_curso
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('login/', login, name='login'),
-    path('asistencia/', ver_asistencia, name='asistencias'),
+    path('asistencia/', ver_asistencia_curso, name='asistencias'),
+    path('Lista_curso/', ver_lista_curso, name='lista_curso'),
+    path('horario_curso', ver_horario_asignaturas_curso, name='horario_curso'),
 ]
