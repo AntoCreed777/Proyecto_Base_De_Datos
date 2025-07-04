@@ -218,7 +218,7 @@ class Estudiante(models.Model):
     anio_ingreso = models.IntegerField()
     numero_de_matricula = models.CharField(max_length=50, unique=True)
     fecha_matricula = models.DateField()
-    foto = models.ImageField(upload_to='fotos_estudiantes/', blank=True, null=True) 
+    #foto = models.ImageField(upload_to='fotos_estudiantes/', blank=True, null=True) 
     estado_academico = models.CharField(
         max_length=50, 
         choices=Estado_Academico.choices,
