@@ -165,21 +165,21 @@ ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0']
 
 ### Preparar la Base de Datos
 
+
+
 ```bash
-# Crear y aplicar migraciones
+# Crear y poblar base de datos
+python3 crear_bd.py
+
+# Crear y aplicar migraciones 
 python3 manage.py makemigrations
 python3 manage.py migrate
 
-# Poblar con datos de prueba
-python3 manage.py populate_db
 ```
 
 ### Comandos Útiles
 
 ```bash
-# Limpiar datos de prueba
-python3 manage.py clear_db
-
 # Crear superusuario
 python3 manage.py createsuperuser
 ```

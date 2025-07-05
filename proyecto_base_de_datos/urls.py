@@ -19,8 +19,11 @@ from django.urls import path
 from accounts.views import login
 from Docente.views import ver_asistencia_curso, ver_lista_curso, ver_horario_asignaturas_curso
 
+from API.views import bdd_test
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('bdd_test/', bdd_test),
     path('login/', login, name='login'),
     path('asistencia/', ver_asistencia_curso, name='asistencias'),
     path('Lista_curso/', ver_lista_curso, name='lista_curso'),
