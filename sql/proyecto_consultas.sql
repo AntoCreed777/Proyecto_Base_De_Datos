@@ -39,7 +39,7 @@ $$ LANGUAGE plpgsql;
 
 -- Consulta para obtener asignaturas y profesores de un curso
 
-CREATE OR REPLACE FUNCTION proyecto_bd.obtener_asignaturas_y_profesores(curso_id INT)
+CREATE OR REPLACE FUNCTION proyecto_bd.obtener_asignaturas_y_docentes_curso(curso_id INT)
 RETURNS TABLE(asignatura VARCHAR, docente VARCHAR) AS $$
 BEGIN
     RETURN QUERY
@@ -74,14 +74,14 @@ $$ LANGUAGE plpgsql;
 
 -- Consulta para obtener el horario de las asignaturas de un curso
 CREATE OR REPLACE FUNCTION proyecto_bd.obtener_horario_curso(curso_id INT)
-RETURNS TABLE (Dia VARCHAR, Hora_Inicio TIME, Hora_Fin TIME, Nombre_Asignatura VARCHAR(100)) AS $$
+RETURNS TABLE ( Nombre_Asignatura VARCHAR(100), Dia VARCHAR, Hora_Inicio TIME, Hora_Fin TIME) AS $$
 BEGIN
     RETURN QUERY
     SELECT 
+        a.Nombre_asignatura,       
         b.Dia,
         b.Hora_Inicio,
-        b.Hora_Fin,
-        a.Nombre_asignatura       
+        b.Hora_Fin
     FROM proyecto_bd.Curso c
     JOIN proyecto_bd.Asignatura a ON a.ID_Curso = c.ID_Curso
     JOIN proyecto_bd.asignaturaESTAENbloquehorario ab ON ab.ID_Asignatura = a.ID_Asignatura
@@ -95,7 +95,7 @@ $$ LANGUAGE plpgsql;
 
 -- VER NOTAS DE ASIGNATURA DE CURSO
 
-CREATE OR REPLACE FUNCTION proyecto_bd.obtener_notas_curso(ID_Asignatura INT) 
+CREATE OR REPLACE FUNCTION proyecto_bd.obtener_notas_asignatura(ID_Asignatura INT) 
 RETURNS TABLE (Estudiante VARCHAR, Nota NUMERIC) AS $$
 BEGIN
     RETURN QUERY
@@ -146,21 +146,69 @@ END;
 
 $$ LANGUAGE plpgsql;
 
-'''
-PENDIENTE:
 
-X - Consulta y emision del compendio de notas del Alumno.
-X - Consulta del horario de un curso.
-X - Consulta de las Asignaturas y Profesores de un curso.
-X - Consulta de los Alumnos pertenecientes a un curso.
-X - Emision de la lista de Alumnos de un curso.
-X - Consulta de informacion de un Alumno.
-X - Emision del Informe de asistencia a las distintas Asignaturas.
+CREATE OR REPLACE FUNCTION proyecto_bd.obtener_info_familia(RUN_Estudiante VARCHAR(12))
+RETURNS TABLE (
+    ID_Familia INT,
+    Nombre_Familia VARCHAR(100),
+    Cuantos_Trabajan INT,
+    Ocupacion_Padres VARCHAR(100),
+    Numero_Integrantes INT,
+    Cantidad_Dormitorios INT,
+    Cantidad_Baños INT,
+    Baños_Compartidos BOOLEAN,
+    Energia VARCHAR(50),
+    Tipo_Agua VARCHAR(50),
+    Tipo_Construccion VARCHAR(50),
+    Propiedad VARCHAR(50),
+    Estado_Marital_Padres VARCHAR(50),
+    Estado_Vida_Padres VARCHAR(50),
+    Ingresos_Mensuales BIGINT
+) AS $$
+DECLARE 
+    familia_estudiante INT;
+BEGIN 
+    SELECT e.ID_Familia INTO familia_estudiante
+	FROM proyecto_bd.Estudiante e
+	WHERE e.RUN_Persona = RUN_Estudiante;
 
-- Consulta sobre informacion de la familia del Alumno.
-- Consulta de los datos de un Profesor
-- Ingreso de Notas restringido por docentes.
-- Emision del Informe socioeconomico del Alumno.
-- Emision del certificado de Alumno regular del Alumno.
-- Emision del Comprobante de Matricula del Alumno.
-'''
+    RETURN QUERY
+    SELECT *
+    FROM proyecto_bd.Info_Familia i
+    WHERE i.ID_Familia = familia_estudiante;
+END;
+
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION proyecto_bd.obtener_docente_dicta_asignatura(RUN_Docente VARCHAR(12))
+RETURNS TABLE (ID_Asignatura INT, Asignatura VARCHAR(100), Curso VARCHAR(4)) AS $$
+BEGIN
+    RETURN QUERY
+    SELECT 
+        a.ID_Asignatura AS ID_Asignatura,
+        a.Nombre_asignatura AS Asignatura,
+        (c.Grado || ' ' || c.Letra)::VARCHAR(4) AS Curso,
+
+    FROM proyecto_bd.docenteDICTAasignatura dda
+    JOIN proyecto_bd.asignatura a ON a.ID_Asignatura = dda.ID_Asignatura
+    JOIN proyecto_bd.Curso c ON c.ID_Curso = a.ID_Curso
+    WHERE dda.RUN_Docente = obtener_docente_dicta_asignatura.RUN_Docente;
+END;
+
+$$ LANGUAGE plpgsql
+
+
+
+-- PENDIENTE:
+
+-- X - Consulta y emision del compendio de notas del Alumno.
+-- X - Consulta del horario de un curso.
+-- X - Consulta de las Asignaturas y Profesores de un curso.
+-- X - Consulta de los Alumnos pertenecientes a un curso.
+-- X - Emision de la lista de Alumnos de un curso.
+-- X - Consulta de informacion de un Alumno.
+-- X - Emision del Informe de asistencia a las distintas Asignaturas.
+
+-- X Consulta sobre informacion de la familia del Alumno.
+-- X Consulta de los datos de un Profesor
+-- - Ingreso de Notas restringido por docentes.
