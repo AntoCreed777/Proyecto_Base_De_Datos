@@ -2,6 +2,7 @@ import psycopg2, getpass
 import sys
 
 from proyecto_base_de_datos.settings import DATABASES
+
 db = DATABASES['default']
 
 def crear_bd():
@@ -31,15 +32,23 @@ def crear_bd():
     conn.close()
     cursor.close()
 
-def crear_tablas(dir_archivo='./sql/create_tables.sql'):
+def crear_tablas(dir_archivo_create='./sql/create_tables.sql', dir_archivo_funciones='./sql/proyecto_consultas.sql'):
             
-    ## obtener codigo sql
-    archivo_codigo_sql = open(dir_archivo, 'r')
+    ## obtener codigo de creacion de tablas sql
+    archivo_codigo_sql = open(dir_archivo_create, 'r')
     lineas_codigo_sql = archivo_codigo_sql.readlines()
 
     codigo_sql = ''
     for linea in lineas_codigo_sql:
         codigo_sql += linea 
+
+    # obtener codigo de creacion de funciones sql
+    archivo_funciones_sql = open(dir_archivo_funciones, 'r')
+    lineas_funciones_sql = archivo_funciones_sql.readlines()
+
+    funciones_sql = ''
+    for linea in lineas_funciones_sql:
+        funciones_sql += linea 
 
     # conectarse a nueva bd
 
@@ -57,6 +66,9 @@ def crear_tablas(dir_archivo='./sql/create_tables.sql'):
     cursor = conn.cursor()
     print('Creando tablas')
     cursor.execute(codigo_sql)
+
+    print('Creando funciones')
+    cursor.execute(funciones_sql)
 
     conn.close()
     cursor.close()

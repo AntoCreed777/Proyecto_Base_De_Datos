@@ -285,18 +285,3 @@ CREATE TABLE IF NOT EXISTS proyecto_bd.asignaturaESTAENbloquehorario (
 
 -- CREAR FUNCIONES PARA REALIZAR CONSULTAS
 -- Obtener nombre completo de persona
-CREATE OR REPLACE FUNCTION proyecto_bd.obtener_nombre_completo(ID_Persona VARCHAR(12))
-RETURNS VARCHAR(100) AS $$
-DECLARE
-    nombre_completo VARCHAR(100);
-BEGIN
-    SELECT 
-        (nc.Primer_nombre || ' ' || nc.Segundo_nombre || ' ' || nc.Apellido_paterno || ' ' || nc.Apellido_materno)::VARCHAR(100) INTO nombre_completo
-    FROM proyecto_bd.Nombre_Completo nc
-    WHERE nc.RUN_Persona = obtener_nombre_completo.ID_Persona;
-
-    RETURN nombre_completo;
-END;
-
-$$ LANGUAGE plpgsql;
-
