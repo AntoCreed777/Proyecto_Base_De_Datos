@@ -1,0 +1,22 @@
+def decorator(func):
+
+    def wrapper(*args, **kwargs):
+        print("Connecting to the database...")
+
+        var = 'a'
+        result = func(*args, **kwargs)
+
+        print('results: ', result)
+        return result
+
+    return wrapper
+
+
+@decorator
+def something():
+    print("Doing something...")
+    res = [{'id': 1, 'name': var}, {'id': 2, 'name': 'Jane'}]
+    return res
+
+
+print('something: ',something())

@@ -18,7 +18,10 @@ from django.contrib import admin
 from django.urls import path
 from API.views import login
 
+from API.views import bdd_test
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('login/', login),
+    path('bdd_test/', bdd_test),
 ]
