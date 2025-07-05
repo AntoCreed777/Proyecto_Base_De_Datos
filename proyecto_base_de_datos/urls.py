@@ -16,12 +16,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from API.views import login
+from accounts.views import login
+from Docente.views import ver_asistencia_curso, ver_lista_curso, ver_horario_asignaturas_curso
 
 from API.views import bdd_test
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('login/', login),
     path('bdd_test/', bdd_test),
+    path('login/', login, name='login'),
+    path('asistencia/', ver_asistencia_curso, name='asistencias'),
+    path('Lista_curso/', ver_lista_curso, name='lista_curso'),
+    path('horario_curso', ver_horario_asignaturas_curso, name='horario_curso'),
 ]

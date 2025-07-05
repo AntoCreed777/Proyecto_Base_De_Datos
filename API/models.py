@@ -213,6 +213,7 @@
 #         PREMATRICULADO = 'prematriculado', 'Prematriculado'
 #         CONGELADO = 'congelado', 'Congelado'
 
+
 #     RUN_persona = models.ForeignKey(Persona, on_delete=models.CASCADE, primary_key=True)
 #     id_familia = models.ForeignKey(Info_Familia, on_delete=models.CASCADE)
 #     anio_ingreso = models.IntegerField()
@@ -224,6 +225,19 @@
 #         choices=Estado_Academico.choices,
 #         default=Estado_Academico.VIGENTE
 #     )
+
+    # RUN_persona = models.ForeignKey(Persona, on_delete=models.CASCADE, primary_key=True)
+    # id_familia = models.ForeignKey(Info_Familia, on_delete=models.CASCADE)
+    # anio_ingreso = models.IntegerField()
+    # numero_de_matricula = models.CharField(max_length=50, unique=True)
+    # fecha_matricula = models.DateField()
+    # #foto = models.ImageField(upload_to='fotos_estudiantes/', blank=True, null=True) 
+    # estado_academico = models.CharField(
+    #     max_length=50, 
+    #     choices=Estado_Academico.choices,
+    #     default=Estado_Academico.VIGENTE
+    # )
+
 
 #     semestre_ingreso = models.IntegerField()
 

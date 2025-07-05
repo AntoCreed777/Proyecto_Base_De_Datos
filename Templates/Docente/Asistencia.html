@@ -1,0 +1,40 @@
+{% extends "Layouts/base.html" %}
+{% load static %}
+
+{% block content %}
+
+<form method="post">
+    {% csrf_token %}
+    <label for="asignatura_id">ID de la Asignatura:</label>
+    <input type="number" name="asignatura_id" id="asignatura_id" required value="{{ asignatura_id }}">
+    <button type="submit">Buscar</button>
+</form>
+
+
+{% if asistencias %}
+    <h3>Resultados para Asignatura ID {{ asignatura_id }}</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Estudiante</th>
+                <th>Asistencia</th>
+                <th>Fecha</th>
+                <th>Hora</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for a in asistencias %}
+            <tr>
+                <td>{{ a.estudiante }}</td>
+                <td>{{ a.asistencia }}</td>
+                <td>{{ a.fecha }}</td>
+                <td>{{ a.hora }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% elif asignatura_id %}
+    <p>No hay registros de asistencia para la asignatura {{ asignatura_id }}.</p>
+{% endif %}
+
+{% endblock %}
