@@ -27,12 +27,9 @@ def crear_bd():
 
     print('Creando tablas')
 
-    codigo_sql = open('./sql/create_tables.sql', 'r')
-
-    print(codigo_sql)
-
     #Closing the connection
     conn.close()
+    cursor.close()
 
 def crear_tablas(dir_archivo='./sql/create_tables.sql'):
             
@@ -43,8 +40,6 @@ def crear_tablas(dir_archivo='./sql/create_tables.sql'):
     codigo_sql = ''
     for linea in lineas_codigo_sql:
         codigo_sql += linea 
-
-    print(codigo_sql)
 
     # conectarse a nueva bd
 
@@ -77,8 +72,6 @@ def poblar_bd(dir_archivo='./sql/proyecto_poblar.sql'):
     codigo_sql = ''
     for linea in lineas_codigo_sql:
         codigo_sql += linea 
-
-    print(codigo_sql)
 
     conn = psycopg2.connect(
         database=db['NAME'], 
