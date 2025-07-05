@@ -80,22 +80,17 @@ def query_id_asignaturas(cursor, ID_Curso, nombre_asignatura=None):
     results = cursor.fetchall()
     return crear_diccionarios(attributes, results)
 
-
+@query_to_db
 def query_estudiante():
     pass
-
+    
 @query_to_db
 def query_asistencia(cursor, ID_Asignatura):
 
-    cursor.execute(f'''
-    SELECT a.RUN_Estudiante, proyecto_bd.obtener_nombre_completo(a.RUN_Estudiante), a.Estado, a.Fecha, a.Hora_Inicio, ag.Nombre_asignatura
-    FROM proyecto_bd.Asistencia a
-    INNER JOIN proyecto_bd.Asignatura AS ag ON a.ID_Asignatura = ag.ID_Asignatura
-    WHERE a.ID_Asignatura = {ID_Asignatura};
-    ''')
+    # print( cursor.execute(f'SELECT * FROM proyecto_bd.obtener_asistencia_curso({ID_Asignatura})').fetchone())
+    cursor.execute(f'SELECT * FROM proyecto_bd.obtener_asistencia_curso({ID_Asignatura})')
     results = cursor.fetchall()    
-    asistencia = crear_diccionarios(['Rut Estudiante', 'Nombre Estudiante', 'Asistencia', 'Fecha', 'Hora', 'Asignatura'], results)
-
+    asistencia = crear_diccionarios(['Nombre Estudiante', 'Asistencia', 'Fecha', 'Hora'], results)
     return asistencia
 
     
