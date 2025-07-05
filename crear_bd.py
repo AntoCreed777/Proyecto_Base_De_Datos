@@ -2,6 +2,7 @@ import psycopg2, getpass
 import sys
 
 from proyecto_base_de_datos.settings import DATABASES
+
 db = DATABASES['default']
 
 def crear_bd():
