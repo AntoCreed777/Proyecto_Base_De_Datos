@@ -187,7 +187,7 @@ BEGIN
     SELECT 
         a.ID_Asignatura AS ID_Asignatura,
         a.Nombre_asignatura AS Asignatura,
-        (c.Grado || ' ' || c.Letra)::VARCHAR(4) AS Curso,
+        (c.Grado || ' ' || c.Letra)::VARCHAR(4) AS Curso
 
     FROM proyecto_bd.docenteDICTAasignatura dda
     JOIN proyecto_bd.asignatura a ON a.ID_Asignatura = dda.ID_Asignatura
