@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.db import connection
+from API.conexion_bd import *
 
 #ñ = Ã±
 
@@ -84,7 +85,6 @@ def obtener_familias():
         return fam.fetchall()
     
 def añadir_alumno(request): 
-    print(obtener_generos())
     estudiante = []
 
     if request.method == 'POST':
@@ -220,6 +220,20 @@ def añadir_alumno(request):
         'nacionalidades' : arreglar_palabras(obtener_nacionalidad()),
         'religiones' : arreglar_palabras(obtener_religion()),
         'familias' : arreglar_palabras(obtener_familias()),
+    })
+
+def ver_notas_asignatura(request):
+    notas = {}
+    id_asignatura = None
+
+    if request.method == 'POST':
+        id_asignatura = request.POST.get('id_asignatura')
+
+        notas = obtener_notas_asignatura(id_asignatura)
+
+    return render(request, 'Funcionario/Ver_Notas_Asig.html',{
+        'notas_estudiante' : notas,
+        'id_asignatura' : id_asignatura,
     })
 
 def ver_links(request):

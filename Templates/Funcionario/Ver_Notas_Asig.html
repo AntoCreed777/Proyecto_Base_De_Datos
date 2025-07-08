@@ -1,0 +1,35 @@
+{% extends "Layouts/base.html" %}
+
+{% block content %}
+
+<form method="post">
+    {% csrf_token %}
+    <label for="id_asignatura">Ingrese el id de la asignatura:</label>
+    <input type="text" name="id_asignatura" id="id_asignatura" required value="{{ id_asignatura }}">
+    <button type="submit">Buscar</button>
+</form>
+
+{% if notas_estudiante %}
+
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre Estudiante</th>
+                <th>Nota</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for nota in notas_estudiante %}
+            <tr>
+                <td>{{ nota.Estudiante }}</td>
+                <td>{{ nota.Nota }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% elif id_asignatura %}
+    <p>La asignatura {{ id_asignatura }} no existe o no evaluaciones realizadas.</p>
+{% endif %}
+
+{% endblock %}
