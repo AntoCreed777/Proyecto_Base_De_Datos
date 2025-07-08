@@ -1,0 +1,21 @@
+{% extends "Layouts/base.html" %}
+
+{% block content %}
+
+<h1>Bienvenido Docente</h1>
+
+<h2> Paginas disponibles</h2>
+
+<ul>
+    <li>
+        <a href="{% url 'horario_curso' %}">Ver horarios de los cursos</a>
+    </li>
+    <li>
+        <a href="{% url 'lista_curso' %}">Ver listas de curso</a>
+    </li>
+    <li>
+        <a href="{% url 'asistencias' %}">Ver asistencia de cursos</a>
+    </li>
+</ul>
+
+{% endblock %}

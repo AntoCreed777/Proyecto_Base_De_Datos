@@ -76,3 +76,5 @@ def ver_lista_curso(request):
         'curso_id': curso_id
     })
 
+def ver_links(request):
+    return render(request, 'Docente/Pag_Docente.html')
