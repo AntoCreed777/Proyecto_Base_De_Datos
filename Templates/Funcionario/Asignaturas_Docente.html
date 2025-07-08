@@ -1,0 +1,36 @@
+{% extends "Layouts/base.html" %}
+
+{% block content %}
+
+<form method="post">
+    {% csrf_token %}
+    <label for="docente_id">Ingrese rut del docente:</label>
+    <input type="text" name="docente_id" id="docente_id" required value="{{ docente_id }}">
+    <button type="submit">Buscar</button>
+</form>
+
+{% if asignaturas %}
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID Asignatura</th>
+                <th>Nombre</th>
+                <th>Curso en cual se dicta</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for a in asignaturas %}
+            <tr>
+                <td>{{ a.Id }}</td>
+                <td>{{ a.nombre }}</td>
+                <td>{{ a.curso }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% elif docente_id %}
+    <p>El docente {{ docente_id }} no da asignatura alguna.</p>
+{% endif %}
+{% endblock %}
