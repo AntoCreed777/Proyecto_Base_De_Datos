@@ -1,0 +1,36 @@
+{% extends "Layouts/base.html" %}
+
+{% block content %}
+
+
+<form method="post">
+    {% csrf_token %}
+    <label for="curso_id">Ingrese el id del curso:</label>
+    <input type="number" name="curso_id" id="curso_id" required value="{{ curso_id }}">
+    <button type="submit">Buscar</button>
+</form>
+
+{% if asignaturas_docentes %}
+
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre Asignatura</th>
+                <th>Nombre Docente</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for a in asignaturas_docentes %}
+            <tr>
+                <td>{{ a.NAsignatura }}</td>
+                <td>{{ a.NDocente }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% elif curso_id %}
+    <p>El curso {{ curso_id }} no existe o no tiene asignaturas asignadas.</p>
+{% endif %}
+
+{% endblock %}
