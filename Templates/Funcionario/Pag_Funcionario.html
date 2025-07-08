@@ -1,0 +1,21 @@
+{% extends "Layouts/base.html" %}
+
+{% block content %}
+
+<h1>Bienvenido Funcionario</h1>
+
+<h2> Paginas disponibles</h2>
+
+<ul>
+    <li>
+        <a href="{% url 'asignaturas_docente' %}">Ver asignaturas docente</a>
+    </li>
+    <li>
+        <a href="{% url 'asignaturas_curso' %}">Ver asignaturas curso</a>
+    </li>
+    <li>
+        <a href="{% url 'añadir_alumno' %}">Crear alumnos nuevos</a>
+    </li>
+</ul>
+
+{% endblock %}
