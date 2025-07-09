@@ -1,8 +1,13 @@
 import datetime
 from enum import Enum
+from typing import TYPE_CHECKING
 from django.db import connection
 import psycopg2
 from psycopg2 import sql
+
+# Para las anotaciones de tipo sin problemas de importación circular
+if TYPE_CHECKING:
+    from psycopg2.extensions import cursor as PsycoCursor
 
 from proyecto_base_de_datos.settings import DATABASES
 db = DATABASES['default']
@@ -13,7 +18,11 @@ db = DATABASES['default']
 
 
 def query_to_db(view_func):
-    
+    """
+    Decorador que maneja automáticamente la conexión a la base de datos.
+    La función decorada NO debe recibir 'cursor' como parámetro cuando se llama.
+    El decorador se encarga de crear la conexión y pasar el cursor automáticamente.
+    """
     def wrapper(*args, **kwargs):
         try:
             connection = psycopg2.connect(
@@ -27,8 +36,8 @@ def query_to_db(view_func):
             cursor = connection.cursor()
             # Execute the view function with the database connection
             results = view_func(cursor, *args, **kwargs)
-            connection.close()
             cursor.close()
+            connection.close()
             return results
         
         except Exception as e:
@@ -113,19 +122,11 @@ def obtener_asignaturas_y_docentes_curso(cursor, ID_Curso):
     diccionario = crear_diccionarios(['Asignatura', 'Docente'], results)
     return diccionario
 
-
 @query_to_db
 def obtener_estudiantes_por_curso(cursor, ID_Curso):
     cursor.execute(f'SELECT * FROM proyecto_bd.obtener_estudiantes_por_curso({ID_Curso})')
     results = cursor.fetchall()    
     diccionario = crear_diccionarios(['Estudiante'], results)
-    return diccionario
-
-@query_to_db
-def obtener_horario_curso(cursor, ID_Curso):
-    cursor.execute(f'SELECT * FROM proyecto_bd.obtener_horario_curso({ID_Curso})')
-    results = cursor.fetchall()    
-    diccionario = crear_diccionarios(['Asignatura','Día','Hora Inicio','Hora Término'] ,results)
     return diccionario
 
 @query_to_db
@@ -142,7 +143,6 @@ def obtener_notas_asignatura(cursor, ID_Asignatura):
     diccionario = crear_diccionarios(['Estudiante', 'Nota'] ,results)
     return diccionario
 
-
 @query_to_db
 def obtener_apoderados_estudiante(cursor, RUN_Estudiante):
     cursor.execute(f'SELECT * FROM proyecto_bd.obtener_apoderados_estudiante({RUN_Estudiante})')
@@ -154,15 +154,6 @@ def obtener_apoderados_estudiante(cursor, RUN_Estudiante):
         'Profesión'
     ] ,results)
     return diccionario  
-
-
-@query_to_db
-def obtener_asistencia_curso(cursor, ID_Curso):
-    cursor.execute(f'SELECT * FROM proyecto_bd.obtener_asistencia_curso({ID_Curso})')
-    results = cursor.fetchall()    
-    diccionario = crear_diccionarios(['Estudiante', 'Asistencia', 'Fecha', 'Hora'], results)
-    return diccionario
-
 
 @query_to_db
 def obtener_asistencia_curso(cursor, ID_Curso):
@@ -201,3 +192,33 @@ def obtener_docente_dicta_asignatura(cursor, RUN_Docente):
     results = cursor.fetchall()    
     diccionario = crear_diccionarios(['ID Asignatura', ' Asignatura', 'Curso'], results)
     return diccionario
+
+@query_to_db
+def consultar_credenciales_usuario(cursor: psycopg2.extensions.cursor, RUN: str, password: str) -> bool:
+    """
+    Consulta si las credenciales son válidas
+    
+    Args:
+        cursor: Cursor de la base de datos (pasado automáticamente por @query_to_db)
+        RUN: Identificador del usuario (ej: "12345678-9")  
+        password: Contraseña a verificar
+        
+    Returns:
+        bool: True si las credenciales son válidas, False en caso contrario
+        
+    Uso:
+        # NO pases cursor manualmente - el decorador lo hace automáticamente
+        es_valido = consultar_credenciales_usuario("12345678-9", "mi_password")
+    """
+    query = '''
+        SELECT Contraseña
+        FROM proyecto_bd.Persona
+        WHERE RUN_Persona = %s;
+    '''
+    cursor.execute(query, (RUN,))
+    result = cursor.fetchone()
+    # Comparar la contraseña obtenida con la proporcionada
+    if result and result[0] == password:
+        return True
+    
+    return False

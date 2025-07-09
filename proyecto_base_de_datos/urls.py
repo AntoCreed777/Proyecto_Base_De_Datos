@@ -16,7 +16,6 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from accounts.views import login
 
 from API.views import bdd_test
 
@@ -24,6 +23,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('docente/', include('Docente.urls')),
     path('bdd_test/', bdd_test),
-    path('login/', login, name='login'),
     path('funcionario/', include('Funcionario.urls')),
+    path('accounts/', include('accounts.urls')),
 ]
