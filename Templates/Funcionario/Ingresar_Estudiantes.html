@@ -12,7 +12,7 @@
             <option value="{{ familia.0 }}">{{ familia.1 }}</option>
         {% endfor %}
     </select>
-    <a href="">Crear familia</a>
+    <a href="{% url 'crear_familia' %}">Crear familia</a>
     <br>
 
     <label for="rut_al">Ingrese rut del nuevo estudiante: </label>
@@ -120,27 +120,5 @@
         </div>
     {% endwith %}
 {% endif %}
-<script>
-    function crear_familia() {
-        const select = document.getElementById('familias_siono');
-        const crear = document.getElementById('crear_familia');
-
-        if (select.value === 'crear_nueva_familia') {
-            crear.style.display = 'block';
-
-            // Activa required en todos los inputs y selects dentro del div
-            crear.querySelectorAll('input, select').forEach(elem => {
-                elem.required = true;
-            });
-        } else {
-            crear.style.display = 'none';
-
-            // Desactiva required en todos los inputs y selects dentro del div
-            crear.querySelectorAll('input, select').forEach(elem => {
-                elem.required = false;
-            });
-        }
-}
-</script>
 
 {% endblock %}
