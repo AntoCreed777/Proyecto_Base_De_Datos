@@ -89,67 +89,8 @@ def añadir_alumno(request):
 
     if request.method == 'POST':
 
-        accion = request.POST.get('accion')
-
-        print("recibimos", accion)
-
-        if accion == 'crear_familia':
-            nombre_familia = request.POST.get('nombre_familia')
-            cuantos_trabajan = request.POST.get('cuantos_trabajan')
-            ocupacion_padres = request.POST.get('ocupacion_padres')
-            numero_integrantes = request.POST.get('numero_integrantes')
-            cantidad_dormitorios = request.POST.get('cantidad_dormitorios')
-            cantidad_banos = request.POST.get('cantidad_banos')
-            banos_compartidos = request.POST.get('banos_compartidos') == 'on'
-            energia = request.POST.get('energia')
-            tipo_agua = request.POST.get('tipo_agua')
-            tipo_construccion = request.POST.get('tipo_construccion')
-            propiedad = request.POST.get('propiedad')
-            estado_marital_padres = request.POST.get('estado_marital_padres')
-            estado_vida_padres = request.POST.get('estado_vida_padres')
-            ingresos_mensuales = request.POST.get('ingresos_mensuales')
-        
-            with connection.cursor() as crear_fam:
-                crear_fam.execute("""
-                INSERT INTO familia (
-                    Nombre_Familia,
-                    Cuantos_Trabajan,
-                    Ocupacion_Padres,
-                    Numero_Integrantes,
-                    Cantidad_Dormitorios,
-                    Cantidad_Baños,
-                    Baños_Compartidos,
-                    Energia,
-                    Tipo_Agua,
-                    Tipo_Construccion,
-                    Propiedad,
-                    Estado_Marital_Padres,
-                    Estado_Vida_Padres,
-                    Ingresos_Mensuales
-                )
-                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s) RETURNING ID_Familia""",
-                [
-                nombre_familia,
-                cuantos_trabajan,
-                ocupacion_padres,
-                numero_integrantes,
-                cantidad_dormitorios,
-                cantidad_banos,
-                banos_compartidos,
-                energia,
-                tipo_agua,
-                tipo_construccion,
-                propiedad,
-                estado_marital_padres,
-                estado_vida_padres,
-                ingresos_mensuales
-                ])
-                id_familia = crear_fam.fetchone()[0]
-            
-        
-        elif accion == 'crear_estudiante':
-            familia_existente = request.POST.get('familias_siono')
-            id_familia = familia_existente 
+        familia_existente = request.POST.get('familias_siono')
+        id_familia = familia_existente 
         
         rut_alumno = request.POST.get('rut_al')
         primer_nombre = request.POST.get('nombre_1_al')
@@ -221,6 +162,64 @@ def añadir_alumno(request):
         'religiones' : arreglar_palabras(obtener_religion()),
         'familias' : arreglar_palabras(obtener_familias()),
     })
+
+def crear_familia(request):
+
+    if request.method == 'POST':
+    
+        nombre_familia = request.POST.get('nombre_familia')
+        cuantos_trabajan = request.POST.get('cuantos_trabajan')
+        ocupacion_padres = request.POST.get('ocupacion_padres')
+        numero_integrantes = request.POST.get('numero_integrantes')
+        cantidad_dormitorios = request.POST.get('cantidad_dormitorios')
+        cantidad_banos = request.POST.get('cantidad_banos')
+        banos_compartidos = request.POST.get('banos_compartidos') == 'on'
+        energia = request.POST.get('energia')
+        tipo_agua = request.POST.get('tipo_agua')
+        tipo_construccion = request.POST.get('tipo_construccion')
+        propiedad = request.POST.get('propiedad')
+        estado_marital_padres = request.POST.get('estado_marital_padres')
+        estado_vida_padres = request.POST.get('estado_vida_padres')
+        ingresos_mensuales = request.POST.get('ingresos_mensuales')
+    
+        with connection.cursor() as crear_fam:
+            crear_fam.execute("""
+            INSERT INTO proyecto_bd.info_familia (
+                Nombre_Familia,
+                Cuantos_Trabajan,
+                Ocupacion_Padres,
+                Numero_Integrantes,
+                Cantidad_Dormitorios,
+                Cantidad_BaÃ±os,
+                BaÃ±os_Compartidos,
+                Energia,
+                Tipo_Agua,
+                Tipo_Construccion,
+                Propiedad,
+                Estado_Marital_Padres,
+                Estado_Vida_Padres,
+                Ingresos_Mensuales
+            )
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s) RETURNING ID_Familia""",
+            [
+            nombre_familia,
+            cuantos_trabajan,
+            ocupacion_padres,
+            numero_integrantes,
+            cantidad_dormitorios,
+            cantidad_banos,
+            banos_compartidos,
+            energia,
+            tipo_agua,
+            tipo_construccion,
+            propiedad,
+            estado_marital_padres,
+            estado_vida_padres,
+            ingresos_mensuales
+            ])
+
+    return render(request, 'Funcionario/Ingresar_familia.html')
+
 
 def ver_notas_asignatura(request):
     notas = {}
