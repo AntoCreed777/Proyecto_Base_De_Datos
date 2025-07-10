@@ -4,14 +4,120 @@
 
 <form method="post" action="{% url 'añadir_alumno' %}">
     {% csrf_token %}
+    <br>
+    <label for="nombre_1_al">Primer nombre: </label>
+    <input type="text" name="nombre_1_al" id="nombre_1_al" required value="{{ nombre_1_al }}">
 
+    <label for="nombre_2_al">Segundo nombre: </label>
+    <input type="text" name="nombre_2_al" id="nombre_2_al" required value="{{ nombre_2_al }}">
+    <br>
+
+    <label for="apellido_1_al">Primer apellido: </label>
+    <input type="text" name="apellido_1_al" id="apellido_1_al" required value="{{ apellido_1_al }}">
+
+    <label for="apellido_2_al">Segundo apellido: </label>
+    <input type="text" name="apellido_2_al" id="apellido_2_al" required value="{{ apellido_2_al }}">
+    <br>
+    
+    <label for="password_al">Ingrese una contraseña para la cuenta: </label>
+    <input type="password" name="password_al" id="password_al" required value="{{ password_al }}">
+    <br>
+
+    <label for="rut_al">Ingrese rut del nuevo estudiante: </label>
+    <input type="text" name="rut_al" id="rut_al" required value="{{ rut_al }}">
+    <br>
+
+    <label for="fecha_nac">Indique la fecha de nacimiento del estudiante: </label>
+    <input type="date", name="fecha_nac" id="fecha_nac" required value="{{ fecha_nac }}">
+    <br>
+    
+    <hr>
+
+    <label for="curso">Curso del estudiante</label>
+    <select name="curso", id="curso" required>
+        <option value="">Ninguno</option>
+        {% for curso in cursos %}
+            {% if curso.1 == 1 or curso.1 == 3  %}
+                <option value="{{ curso.0 }}">{{ curso.1 }}ro {{ curso.2 }}</option>
+            {% elif curso.1 == 2 %}
+                <option value="{{ curso.0 }}">{{ curso.1 }}do {{ curso.2 }}</option>
+            {% elif curso.1 == 4 or curso.1 == 5 or curso.1 == 6 %}
+                <option value="{{ curso.0 }}">{{ curso.1 }}to {{ curso.2 }}</option>
+            {% elif curso.1 == 7 %}
+                <option value="{{ curso.0 }}">{{ curso.1 }}mo {{ curso.2 }}</option>
+            {% elif curso.1 == 8 %}
+                <option value="{{ curso.0 }}">{{ curso.1 }}vo {{ curso.2 }}</option>
+            {% endif %}
+        {% endfor %}
+    </select>
+
+    <label for="matricula_al">Indique la matricula del estudiante: </label>
+    <input type="text", name="matricula_al" id="matricula_al" required value="{{ matricula_al }}">
+    <br>
+
+    <label for="anio_ingreso">Indique el año de ingreso del estudiante: </label>
+    <input type="number", name="anio_ingreso" id="anio_ingreso" required value="{{ anio_ingreso }}">
+    <br>
+
+    <label for="fecha_mat">Indique la fecha de matricula del estudiante: </label>
+    <input type="date", name="fecha_mat" id="fecha_mat" required value="{{ fecha_mat }}">
+    <br>
+
+    <label for="estado_academico_al">Estado académico:</label>
+    <select name="estado_academico_al" id="estado_academico_al" required>
+        <option value="" disabled selected>--Seleccione--</option>
+        <option value="Vigente">Vigente</option>
+        <option value="Egresado">Egresado</option>
+        <option value="Reiterado">Reiterado</option>
+        <option value="Eliminado">Eliminado</option>
+        <option value="Prematriculado">Prematriculado</option>
+        <option value="Congelado">Congelado</option>
+    </select><br>
+
+    <label for="semestre_ing">Semestre de ingreso:</label>
+    <select name="semestre_ing" id="semestre_ing" required>
+        <option value="" disabled selected>--Seleccione--</option>
+        <option value="1">1°Semestre</option>
+        <option value="2">2°Semestre</option>
+    </select><br>
+
+    <hr>
+
+    <label for="genero_al">Indique el género del estudiante: </label>
+    <select id="genero_al" name="genero_al" required>
+        <option value="" disabled selected>--Seleccione--</option>
+        {% for genero in generos %}
+            <option value="{{ genero.0 }}">{{ genero.1 }}</option>
+        {% endfor %}
+    </select><br>
+
+
+    <label for="nacionalidad_al">Indique la nacionalidad: </label>
+    <select name="nacionalidad_al" id="nacionalidad_al">
+        <option value="" disabled selected>--Seleccione--</option>
+        {% for nacionalidad in nacionalidades %}
+        <option value="{{ nacionalidad.0 }}">{{ nacionalidad.1}}</option>
+        {% endfor %}
+    </select>
+    <br>
+
+    <label for="religion_al">Indique la religion: </label>
+    <select name="religion_al" id="religion_al">
+        <option value="" disabled selected>--Seleccione--</option>
+        {% for religion in religiones %}
+        <option value="{{ religion.0 }}">{{ religion.1}}</option>
+        {% endfor %}
+    </select>
+    <br>
+
+    
     <label for="familias_siono">Ingrese familia: </label>
     <select name="familias_siono" id="familias_siono" onchange="crear_familia()" required>
         <option value="" disabled selected>--Seleccione--</option>
         {% for familia in familias %}
             <option value="{{ familia.0 }}">{{ familia.1 }}</option>
         {% endfor %}
-        <option value="crear_nueva_familia">No existe familia ya registrada</option>
+        <option value="crear_nueva_familia">Su familia no ha sido registrada</option>
     </select>
     <br>
 
@@ -109,92 +215,6 @@
         <br>
     </div>
 
-    <label for="rut_al">Ingrese rut del nuevo estudiante: </label>
-    <input type="text" name="rut_al" id="rut_al" required value="{{ rut_al }}">
-    <br>
-
-
-    <label for="nombre_1_al">Primer nombre: </label>
-    <input type="text" name="nombre_1_al" id="nombre_1_al" required value="{{ nombre_1_al }}">
-    <br>
-
-    <label for="nombre_2_al">Segundo nombre: </label>
-    <input type="text" name="nombre_2_al" id="nombre_2_al" required value="{{ nombre_2_al }}">
-    <br>
-
-    <label for="apellido_1_al">Prime apellido: </label>
-    <input type="text" name="apellido_1_al" id="apellido_1_al" required value="{{ apellido_1_al }}">
-    <br>
-
-    <label for="apellido_2_al">Segundo apellido: </label>
-    <input type="text" name="apellido_2_al" id="apellido_2_al" required value="{{ apellido_2_al }}">
-    <br>
-
-    <label for="password_al">Ingrese una contraseña para la cuenta: </label>
-    <input type="password" name="password_al" id="password_al" required value="{{ password_al }}">
-    <br>
-
-    <label for="fecha_nac">Indique la fecha de nacimiento del estudiante: </label>
-    <input type="date", name="fecha_nac" id="fecha_nac" required value="{{ fecha_nac }}">
-    <br>
-
-    <label for="matricula_al">Indique la matricula del estudiante: </label>
-    <input type="text", name="matricula_al" id="matricula_al" required value="{{ matricula_al }}">
-    <br>
-
-    <label for="anio_ingreso">Indique el año de ingreso del estudiante: </label>
-    <input type="number", name="anio_ingreso" id="anio_ingreso" required value="{{ anio_ingreso }}">
-    <br>
-
-    <label for="fecha_mat">Indique la fecha de matricula del estudiante: </label>
-    <input type="date", name="fecha_mat" id="fecha_mat" required value="{{ fecha_mat }}">
-    <br>
-
-    <label for="estado_academico_al">Estado académico:</label>
-    <select name="estado_academico_al" id="estado_academico_al" required>
-        <option value="" disabled selected>--Seleccione--</option>
-        <option value="Vigente">Vigente</option>
-        <option value="Egresado">Egresado</option>
-        <option value="Reiterado">Reiterado</option>
-        <option value="Eliminado">Eliminado</option>
-        <option value="Prematriculado">Prematriculado</option>
-        <option value="Congelado">Congelado</option>
-    </select><br>
-
-    <label for="semestre_ing">Semestre de ingreso:</label>
-    <select name="semestre_ing" id="semestre_ing" required>
-        <option value="" disabled selected>--Seleccione--</option>
-        <option value="1">1°Semestre</option>
-        <option value="2">2°Semestre</option>
-    </select><br>
-
-    <label for="genero_al">Indique el género del estudiante: </label>
-    <select id="genero_al" name="genero_al" required>
-        <option value="" disabled selected>--Seleccione--</option>
-        {% for genero in generos %}
-            <option value="{{ genero.0 }}">{{ genero.1 }}</option>
-        {% endfor %}
-    </select><br>
-
-
-    <label for="nacionalidad_al">Indique la nacionalidad: </label>
-    <select name="nacionalidad_al" id="nacionalidad_al">
-        <option value="" disabled selected>--Seleccione--</option>
-        {% for nacionalidad in nacionalidades %}
-        <option value="{{ nacionalidad.0 }}">{{ nacionalidad.1}}</option>
-        {% endfor %}
-    </select>
-    <br>
-
-    <label for="religion_al">Indique la religion: </label>
-    <select name="religion_al" id="religion_al">
-        <option value="" disabled selected>--Seleccione--</option>
-        {% for religion in religiones %}
-        <option value="{{ religion.0 }}">{{ religion.1}}</option>
-        {% endfor %}
-    </select>
-    <br>
-
     <button type="submit" name="accion" value="crear_estudiante">Crear alumno</button>
     
 </form>
@@ -214,6 +234,7 @@
         </div>
     {% endwith %}
 {% endif %}
+
 <script>
     function crear_familia() {
         const select = document.getElementById('familias_siono');

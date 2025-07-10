@@ -20,7 +20,7 @@ def crear_bd():
     cursor = conn.cursor()
 
     #Preparing query to create a database
-    sql = '''CREATE database proyecto_base_de_datos''';
+    sql = '''CREATE database proyecto_base_de_datos;'''
 
     #Creating a database
     cursor.execute(sql)
