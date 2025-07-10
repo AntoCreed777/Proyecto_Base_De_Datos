@@ -117,104 +117,95 @@
         {% for familia in familias %}
             <option value="{{ familia.0 }}">{{ familia.1 }}</option>
         {% endfor %}
-        <option value="crear_nueva_familia">Su familia no ha sido registrada</option>
+    </select>
+    <a href="{% url 'crear_familia' %}">Crear familia</a>
+    <br>
+
+    <label for="rut_al">Ingrese rut del nuevo estudiante: </label>
+    <input type="text" name="rut_al" id="rut_al" required value="{{ rut_al }}">
+    <br>
+
+
+    <label for="nombre_1_al">Primer nombre: </label>
+    <input type="text" name="nombre_1_al" id="nombre_1_al" required value="{{ nombre_1_al }}">
+    <br>
+
+    <label for="nombre_2_al">Segundo nombre: </label>
+    <input type="text" name="nombre_2_al" id="nombre_2_al" required value="{{ nombre_2_al }}">
+    <br>
+
+    <label for="apellido_1_al">Prime apellido: </label>
+    <input type="text" name="apellido_1_al" id="apellido_1_al" required value="{{ apellido_1_al }}">
+    <br>
+
+    <label for="apellido_2_al">Segundo apellido: </label>
+    <input type="text" name="apellido_2_al" id="apellido_2_al" required value="{{ apellido_2_al }}">
+    <br>
+
+    <label for="password_al">Ingrese una contraseña para la cuenta: </label>
+    <input type="password" name="password_al" id="password_al" required value="{{ password_al }}">
+    <br>
+
+    <label for="fecha_nac">Indique la fecha de nacimiento del estudiante: </label>
+    <input type="date", name="fecha_nac" id="fecha_nac" required value="{{ fecha_nac }}">
+    <br>
+
+    <label for="matricula_al">Indique la matricula del estudiante: </label>
+    <input type="text", name="matricula_al" id="matricula_al" required value="{{ matricula_al }}">
+    <br>
+
+    <label for="anio_ingreso">Indique el año de ingreso del estudiante: </label>
+    <input type="number", name="anio_ingreso" id="anio_ingreso" required value="{{ anio_ingreso }}">
+    <br>
+
+    <label for="fecha_mat">Indique la fecha de matricula del estudiante: </label>
+    <input type="date", name="fecha_mat" id="fecha_mat" required value="{{ fecha_mat }}">
+    <br>
+
+    <label for="estado_academico_al">Estado académico:</label>
+    <select name="estado_academico_al" id="estado_academico_al" required>
+        <option value="" disabled selected>--Seleccione--</option>
+        <option value="Vigente">Vigente</option>
+        <option value="Egresado">Egresado</option>
+        <option value="Reiterado">Reiterado</option>
+        <option value="Eliminado">Eliminado</option>
+        <option value="Prematriculado">Prematriculado</option>
+        <option value="Congelado">Congelado</option>
+    </select><br>
+
+    <label for="semestre_ing">Semestre de ingreso:</label>
+    <select name="semestre_ing" id="semestre_ing" required>
+        <option value="" disabled selected>--Seleccione--</option>
+        <option value="1">1°Semestre</option>
+        <option value="2">2°Semestre</option>
+    </select><br>
+
+    <label for="genero_al">Indique el género del estudiante: </label>
+    <select id="genero_al" name="genero_al" required>
+        <option value="" disabled selected>--Seleccione--</option>
+        {% for genero in generos %}
+            <option value="{{ genero.0 }}">{{ genero.1 }}</option>
+        {% endfor %}
+    </select><br>
+
+
+    <label for="nacionalidad_al">Indique la nacionalidad: </label>
+    <select name="nacionalidad_al" id="nacionalidad_al">
+        <option value="" disabled selected>--Seleccione--</option>
+        {% for nacionalidad in nacionalidades %}
+        <option value="{{ nacionalidad.0 }}">{{ nacionalidad.1}}</option>
+        {% endfor %}
     </select>
     <br>
 
-    <div id="crear_familia" style="display: none;">
-        <br>
-        <label for="nombre_familia">Nombre de la familia:</label>
-        <input type="text" id="nombre_familia" name="nombre_familia" required><br>
-
-        <label for="cuantos_trabajan">¿Cuántos integrantes trabajan?:</label>
-        <input type="number" id="cuantos_trabajan" name="cuantos_trabajan" min="0" required><br>
-
-        <label for="ocupacion_padres">Ocupación de los padres:</label>
-        <input type="text" id="ocupacion_padres" name="ocupacion_padres" required><br>
-
-        <label for="numero_integrantes">Número de integrantes del hogar:</label>
-        <input type="number" id="numero_integrantes" name="numero_integrantes" min="0" required><br>
-
-        <label for="cantidad_dormitorios">Cantidad de dormitorios:</label>
-        <input type="number" id="cantidad_dormitorios" name="cantidad_dormitorios" min="0" required><br>
-
-        <label for="cantidad_banos">Cantidad de baños:</label>
-        <input type="number" id="cantidad_banos" name="cantidad_banos" min="0" required><br>
-
-        <label for="banos_compartidos">¿Los baños son compartidos?:</label>
-        <input type="checkbox" id="banos_compartidos" name="banos_compartidos" required><br>
-
-    <!--Red electrica, Otro suministro, Sin electricidad.-->
-        <label for="energia">Tipo de energía:</label>
-        <select name="energia" id="energia" required>
-            <option value="" disabled selected>--Seleccione--</option>
-            <option value="Red electrica">Red electrica</option>
-            <option value="Otro suministro">Otro suministro</option>
-            <option value="Sin electricidad">Sin electricidad</option>
-        </select><br>
-
-    <!--Agua potable, Pozo, Otro suministro.-->
-        <label for="tipo_agua">Tipo de agua:</label>
-        <select name="tipo_agua" id="tipo_agua" required>
-            <option value="" disabled selected>--Seleccione--</option>
-            <option value="Agua potable">Agua potable</option>
-            <option value="Pozo">Pozo</option>
-            <option value="Otro suministro">Otro suministro</option>
-        </select><br>
-
-    <!--Casa solida, Casa Madera, Departamento, Arriendo, Mediagua.-->
-        <label for="tipo_construccion">Tipo de construcción:</label>
-        <select name="tipo_construccion" id="tipo_construccion" required>
-            <option value="" disabled selected>--Seleccione--</option>
-            <option value="Casa solida">Casa solida</option>
-            <option value="Casa Madera">Casa Madera</option>
-            <option value="Departamento">Departamento</option>
-            <option value="Arriendo">Arriendo</option>
-            <option value="Mediagua">Mediagua</option>
-        </select><br>
-
-    <!--Propia, cedida, arrendada, allegados.-->
-        <label for="propiedad">Tipo de propiedad:</label>
-        <select name="propiedad" id="propiedad" required>
-            <option value="" disabled selected>--Seleccione--</option>
-            <option value="Propia">Propia</option>
-            <option value="Cedida">Cedida</option>
-            <option value="Arrendada">Arrendada</option>
-            <option value="Allegados">Allegados</option>
-        </select><br>
-    
-    <!--Casado, Separados, Anulado, Convivientes, Viudo(a), Solteros, Divorciados.-->
-        <label for="estado_marital_padres">Estado marital de los padres:</label>
-        <select name="estado_marital_padres" id="estado_marital_padres" required>
-            <option value="" disabled selected>--Seleccione--</option>
-            <option value="Casado">Casado</option>
-            <option value="Separados">Separados</option>
-            <option value="Anulado">Anulado</option>
-            <option value="Convivientes">Convivientes</option>
-            <option value="Viudo">Viudo</option>
-            <option value="Viuda">Viuda</option>
-            <option value="Solteros">Solteros</option>
-            <option value="Divorciados">Divorciados</option>
-        </select><br>
-
-    <!--Ambos Vivos, Ambos Muertos, Solo el Padre Vivo, Solo la Madre Viva. -->
-        <label for="estado_vida_padres">Estado de vida de los padres:</label>
-        <select name="estado_vida_padres" id="estado_vida_padres" required>
-            <option value="" disabled selected>--Seleccione--</option>
-            <option value="Ambos Vivos">Ambos Vivos</option>
-            <option value="Ambos Muertos">Ambos Muertos</option>
-            <option value="Solo el Padre Vivo">Solo el Padre Vivo</option>
-            <option value="Solo la Madre Viva">Solo la Madre Viva</option>
-        </select><br>
-
-        <label for="ingresos_mensuales">Ingresos mensuales (CLP):</label>
-        <input type="number" id="ingresos_mensuales" name="ingresos_mensuales" min="0" required><br>
-
-        <button type="submit" name="accion" value="crear_familia">Crear familia</button>
-        <br>
-        <br>
-    </div>
-
+    <label for="religion_al">Indique la religion: </label>
+    <select name="religion_al" id="religion_al">
+        <option value="" disabled selected>--Seleccione--</option>
+        {% for religion in religiones %}
+        <option value="{{ religion.0 }}">{{ religion.1}}</option>
+        {% endfor %}
+    </select>
+    <br>
     <button type="submit" name="accion" value="crear_estudiante">Crear alumno</button>
     
 </form>
@@ -234,28 +225,5 @@
         </div>
     {% endwith %}
 {% endif %}
-
-<script>
-    function crear_familia() {
-        const select = document.getElementById('familias_siono');
-        const crear = document.getElementById('crear_familia');
-
-        if (select.value === 'crear_nueva_familia') {
-            crear.style.display = 'block';
-
-            // Activa required en todos los inputs y selects dentro del div
-            crear.querySelectorAll('input, select').forEach(elem => {
-                elem.required = true;
-            });
-        } else {
-            crear.style.display = 'none';
-
-            // Desactiva required en todos los inputs y selects dentro del div
-            crear.querySelectorAll('input, select').forEach(elem => {
-                elem.required = false;
-            });
-        }
-}
-</script>
 
 {% endblock %}
